@@ -11,7 +11,6 @@ class arguments             // process and store given arguments
     private $input;         // input file
     private $output;        // output file
     private $query;         // query
-    private $queryFile;     // query file
     private $nFlag;         // n flag
 
     function __construct ($argc) {   // class construct
@@ -75,10 +74,12 @@ class arguments             // process and store given arguments
 
                     case 'qf' :
 
-                        if (isset($this->queryFile))
-                            throw new Exception('parametr nelze zadat vícenásobně');
+                        if (isset($this->query))
+                            throw new Exception('parametr query nelze zadat vícenásobně');
 
-                        $this->queryFile = substr($arg, strpos($arg, '=') + 1); // store path to query file
+                        $fileName = substr($arg, strpos($arg, '=') + 1); // store path to query filet
+
+                        $this->fillingQueryByFile($fileName);
 
                         break;
 
@@ -93,15 +94,8 @@ class arguments             // process and store given arguments
             }
         }
 
-        if (isset($this->query) && isset($this->queryFile)) {
-            throw new Exception('parametr querry a qf nelze kombinovat');
-        }
-        if (empty($this->query) && empty($this->queryFile)) {
+        if (empty($this->query))
             throw new Exception('nebyl zadán parametr query and qf');
-        }
-
-        if (isset($this->queryFile))
-            $this->fillingQueryByFile();
 
     }
 
@@ -126,11 +120,11 @@ class arguments             // process and store given arguments
         }
     }
 
-    private function fillingQueryByFile () {
+    private function fillingQueryByFile ($fileName) {
 
-        $file = fopen($this->queryFile, 'r') or die ('Soubor ' . $this->queryFile . ' nelze otevřít' . "\n");
+        $file = fopen($fileName, 'r') or die ('Soubor ' . $fileName . ' nelze otevřít' . "\n");
 
-        $this->query = fread($file,filesize($this->queryFile));
+        $this->query = fread($file, filesize($fileName));
 
         fclose($file);
     }
