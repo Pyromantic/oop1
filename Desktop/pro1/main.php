@@ -14,9 +14,14 @@ try {
 $xmlParser = new xmlParser();
 
 $xmlParser->setQuery($args->getQuery());
-$xmlParser->setInputFile($args->getInput());
-$xmlParser->parseXml($args->getInput());
 
+$xmlParser->add2InputFront($args->getInput());
+
+try {
+    $xmlParser->parseXml();
+} catch (Exception $e) {
+    die('Caught exception: ' . $e->getMessage() . "\n");
+}
 
 /**
  * Created by PhpStorm.
