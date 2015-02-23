@@ -12,9 +12,10 @@ class arguments             // process and store given arguments
     private $output;        // output file
     private $query;         // query
     private $nFlag;         // n flag
+    private $root;          // root element
 
-    function __construct ($argc) {   // class construct
-        if ($argc < 2) {             // input args count test
+    function __construct ($argCount) {   // class construct
+        if ($argCount < 2) {             // input args count test
             throw new Exception('Nebyl zadán žádný argument');
         }
     }
@@ -23,18 +24,18 @@ class arguments             // process and store given arguments
 
     }
 
-    public function argsProcess ($argv, $argc) {                            // arguments processing
+    public function argsProcess ($argmnts, $argCount) {                     // arguments processing
 
-        for ($i = 1; $i < $argc; $i++) {
+        for ($i = 1; $i < $argCount; $i++) {
 
-            if (substr($argv[$i], 0, 2) == '--') {                          // prefix check
+            if (substr($argmnts[$i], 0, 2) == '--') {                       // prefix check
 
-                $arg = substr($argv[$i], 2);
+                $arg = substr($argmnts[$i], 2);
 
                 switch (substr($arg, 0, strpos($arg, '='))) {               // detect parameter
                     case 'help' :                                           // help
 
-                        if ($argc > 2)
+                        if ($argCount > 2)
                             throw new Exception('parameter help nelze kombinovat s jinými parametry');
 
                         echo 'this is help yayaya im lorde ' . "\n";
@@ -66,9 +67,9 @@ class arguments             // process and store given arguments
                         if (isset($this->query))
                             throw new Exception('parametr ' . substr($arg, 0, strpos($arg, '=')) . ' nelze zadat vícenásobně');
 
-                        $this->query = substr($arg, strpos($arg, '=') + 1); // store first command of query
+                        $this->query = substr($arg, strpos($arg, '=') + 1);      // store first command of query
 
-                        $this->fillingQuery($i, $argv, $argc);               // store rest of the query
+                        $this->fillingQuery($i, $argmnts, $argCount);               // store rest of the query
 
                         break;
 
@@ -83,20 +84,27 @@ class arguments             // process and store given arguments
 
                         break;
 
+                    case 'root':
+
+                        if (isset($this->root))
+                            throw new Exception('parametr ' . substr($arg, 0, strpos($arg, '=')) . ' nelze zadat vícenásobně');
+
+                        $this->root = substr($arg, strpos($arg, '=') + 1); // store root element
+
+                        break;
+
                     default :
                         throw new Exception('zadán neznámý parameter ' . $arg);
                         break;
                 }
             } else {
-                if ($argv[$i] == '-n')
+                if ($argmnts[$i] == '-n')
                     $this->nFlag = true;
-                else throw new Exception('zadán neznámý parameter ' . $argv[$i]);
+                else throw new Exception('zadán neznámý parameter ' . $argmnts[$i]);
             }
         }
-
         if (empty($this->query))
-            throw new Exception('nebyl zadán parametr query and qf');
-
+            throw new Exception('nebyl zadán parametr query, ani qf');
     }
 
     private function fileCheck ($file) {    // check if file is correct
@@ -107,16 +115,16 @@ class arguments             // process and store given arguments
             throw new Exception('zadaný vstupní soubor nemá příponu xml');
     }
 
-    private function fillingQuery (&$i, $argv, $argc) {      // filling query
-        for (++$i;$i < $argc; $i++) {                        // checks if it's possible to move on to next arg
-            if ((empty($argv[$i][1]))  ||                    // very complex condition
-                ((($argv[$i][0] == '-') && ($argv[$i][1] == '-')) ||
-                    (($argv[$i][0]== '-') && ($argv[$i][1] == 'n')))) {
+    private function fillingQuery (&$i, $argmnts, $argCount) {      // filling query
+        for (++$i;$i < $argCount; $i++) {                           // checks if it's possible to move on to next arg
+            if ((empty($argmnts[$i][1]))  ||                        // very complex condition
+                ((($argmnts[$i][0] == '-') && ($argmnts[$i][1] == '-')) ||
+                    (($argmnts[$i][0]== '-') && ($argmnts[$i][1] == 'n')))) {
                 $i--;
                 break;
             }
 
-            $this->query = $this->query . ' ' . $argv[$i];   // add command to query
+            $this->query = $this->query . ' ' . $argmnts[$i];   // add command to query
         }
     }
 
@@ -145,5 +153,9 @@ class arguments             // process and store given arguments
 
     public function getNFlag () {
         return $this->nFlag;
+    }
+
+    public function getRoot () {
+        return $this->root;
     }
 }

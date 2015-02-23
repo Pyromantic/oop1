@@ -1,5 +1,6 @@
 <?php
-require 'arguments.php';              // arguments Class
+require 'arguments.php';              // Arguments Class
+require 'xmlParser.php';              // XML Parser Class
 
 try {
     $args = new arguments($argc);     // new args Class
@@ -10,7 +11,11 @@ try {
     die('Caught exception: ' . $e->getMessage() . "\n");
 }
 
+$xmlParser = new xmlParser();
 
+$xmlParser->setQuery($args->getQuery());
+$xmlParser->setInputFile($args->getInput());
+$xmlParser->parseXml($args->getInput());
 
 
 /**

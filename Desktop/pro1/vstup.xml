@@ -1,39 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-- phpMyAdmin XML Dump
-- version 4.1.4
-- http://www.phpmyadmin.net
--
-- Host: 127.0.0.1
-- Generation Time: Feb 18, 2015 at 03:36 PM
-- Server version: 5.6.15-log
-- PHP Version: 5.5.8
--->
 
-<pma_xml_export version="1.0" xmlns:pma="http://www.phpmyadmin.net/some_doc_url/">
-    <!--
-    - Structure schemas
-    -->
-    <pma:structure_schemas>
-        <pma:database name="database" collation="utf8_czech_ci" charset="utf8">
-            <pma:table name="knihovna">
-                CREATE TABLE `knihovna` (
-                  `Id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-                  `Kníga` varchar(255) COLLATE utf8_czech_ci NOT NULL,
-                  `Chuj čo ju napisal` varchar(255) COLLATE utf8_czech_ci NOT NULL,
-                  `Chuj čo ju mal` varchar(255) COLLATE utf8_czech_ci DEFAULT NULL,
-                  `Vo tom to je` text COLLATE utf8_czech_ci NOT NULL,
-                  PRIMARY KEY (`Id`)
-                ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
-            </pma:table>
-        </pma:database>
-    </pma:structure_schemas>
-
-    <!--
-    - Database: 'database'
-    -->
-    <database name="database">
-        <!-- Table knihovna -->
         <table name="knihovna">
             <column name="Id">1</column>
             <column name="Kníga">Dobrodružství šourka kundibáda</column>
@@ -62,5 +28,3 @@
             <column name="Chuj čo ju mal">Nort West</column>
             <column name="Vo tom to je">Tralalala autobiografie kryple co kouří ptákz přes tepláky</column>
         </table>
-    </database>
-</pma_xml_export>

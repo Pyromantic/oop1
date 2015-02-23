@@ -1,1 +1,1 @@
-olda klima kluk je prima
+SELECT book FROM library WHERE title CONTAINS "XML"
