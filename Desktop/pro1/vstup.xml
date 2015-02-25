@@ -1,30 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0"?>
+<catalog>
 
-        <table name="knihovna">
-            <column name="Id">1</column>
-            <column name="Kníga">Dobrodružství šourka kundibáda</column>
-            <column name="Chuj čo ju napisal">olda Klíma</column>
-            <column name="Chuj čo ju mal">já</column>
-            <column name="Vo tom to je">pokračování dobrodružství Šourka kundibáda a jeho věrného přítele Honimíra</column>
-        </table>
-        <table name="knihovna">
-            <column name="Id">2</column>
-            <column name="Kníga">Vyhul mi hůl</column>
-            <column name="Chuj čo ju napisal">Enrico Polliny</column>
-            <column name="Chuj čo ju mal">NULL</column>
-            <column name="Vo tom to je">Enrico má potřebu</column>
-        </table>
-        <table name="knihovna">
-            <column name="Id">3</column>
-            <column name="Kníga">Tralalala</column>
-            <column name="Chuj čo ju napisal">Im Lorda yayaya</column>
-            <column name="Chuj čo ju mal">Ella Marija Lani Yelich-O'Connor</column>
-            <column name="Vo tom to je">fakt se tak ta děfka menuje</column>
-        </table>
-        <table name="knihovna">
-            <column name="Id">4</column>
-            <column name="Kníga">Fish Dicks</column>
-            <column name="Chuj čo ju napisal">Kayne West</column>
-            <column name="Chuj čo ju mal">Nort West</column>
-            <column name="Vo tom to je">Tralalala autobiografie kryple co kouří ptákz přes tepláky</column>
-        </table>
+    <library>
+        <room id="1">
+
+            <book id="bk101">
+                <author>Gambardella, Matthew</author>
+                <author>kokotko</author>
+                <title>XML Developer's Guide</title>
+            </book>
+
+        </room>
+    </library>
+
+    <library>
+
+        <book id="bk102">
+            <author>Gambardella</author>
+            <title>XML Developer's</title>
+        </book>
+
+    </library>
+
+</catalog>

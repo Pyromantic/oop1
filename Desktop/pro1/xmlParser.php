@@ -12,7 +12,6 @@ class xmlParser {
     private $input;         // actual processing XML
     private $i;             // actual position in input
     private $output;        // output XML string
-    private $query;         // SQL query
 
 
     function __construct () {
@@ -30,10 +29,6 @@ class xmlParser {
         $this->i = 0;                       // sets position index
 
         $this->parseXmlHeader();            // checks XML header
-
-        $tag = $this->getNextTag();         // gets next XML tag
-
-        var_dump($tag);
     }
 
     public function saveOutput ($outputFile) {
@@ -60,33 +55,73 @@ class xmlParser {
 
     }
 
+    private function getRootTag () {
+        while ((isset($this->input[$this->i])) &&
+               ($this->input[$this->i] != '<'))       // till prefix is find
+            ++$this->i;
+
+        $tag = $this->determinateTag();               // get Tag
+
+        while ((isset($this->input[$this->i])) &&
+               ($this->input[$this->i] != '>'))       // skips till postfix is find
+            ++$this->i;
+
+        ++$this->i;                                   // skips postfix
+
+        return $tag;
+    }
+
     private function getNextTag () {       // returns next XML tag in given input
+        while (trim($this->input[$this->i]) == "")      // skip whitespaces
+            ++$this->i;
 
-        while (isset($this->input[$this->i])) {       // search for prefix
-            if ($this->input[$this->i] == '<') {
+        if ($this->input[$this->i] == '<') {            // checks for next attribute
 
-                $tag = $this->determinateTag();       // get Tag
+                $tag = array();
 
-                $tagName = $this->getTagAttribute();  // get tags attribute
+                $tagName = $this->determinateTag();             // get tag
 
-                $tagValue = $this->getTagValue();     // get value of attribute
+                $tagAttrName = $this->getTagAttribute();        // get tags attribute
 
-                $this->skip2EOT();                    // skips to end of the tag
+                while (isset($tagAttrName)) {
 
-                echo $tag . ' ' . $tagName . ' ' . $tagValue;
+                    $tagAttrValue = $this->getAttributeValue(); // get value of attribute
 
-                if ($tagName = "name")
-                    $table = $tagValue;
-                exit;
+                    $tag[$tagAttrName] = $tagAttrValue;         // store into array
 
-            } else ++$this->i;                        // incrementation
+                    $tagAttrName = $this->getTagAttribute();    // get tags attribute
+                }
+
+                $value = $this->getTagValue();                  // gets tag value
+
+                if (isset($value))
+                    $tag[$tagName] = $value;
+
+
+            while ($this->input[$this->i + 1] != '/') {
+                $tag[$tagName] = $this->getNextTag();
+
+                while (trim($this->input[$this->i]) == "")      // skip whitespaces
+                    ++$this->i;
+            }
+
+            $actualTag = $this->getEndTag();                // gets expected end tag
+
+            if ($actualTag != $tagName)
+                throw new Exception('invalid XML format, expected end of the tag ' .
+                    $tagName . ' got ' . $actualTag . ' instead');
+
+            return $tag;
         }
+        else throw new Exception ('kuraw fix');
     }
 
     private function determinateTag () {   // returns name of a XML tag
         $tag = '';
-        while (trim($this->input[++$this->i]) != "")       // while not whitespace
-                $tag .= $this->input[$this->i];
+        while ((isset($this->input[++$this->i])) &&
+            (trim($this->input[$this->i]) != "") &&
+               ($this->input[$this->i] != '>'))       // while not whitespace
+            $tag .= $this->input[$this->i];
         return $tag;
     }
 
@@ -96,19 +131,26 @@ class xmlParser {
             ++$this->i;
 
         $tagName = "";
+
+        if ($this->input[$this->i] == ">") {
+            ++$this->i;                             // skips >
+            return NULL;
+        }
+
         --$this->i;                                  // preparation
 
         while ($this->input[++$this->i] != '=')      // save name of the attribute
             $tagName .= $this->input[$this->i];
 
-        ++$this->i;                                  // skip '='
+        ++$this->i;                                  // skips '='
 
         return $tagName;
     }
 
-    private function getTagValue () {
+    private function getAttributeValue () {
 
-        if ($this->input[$this->i] != "\"") throw new Exception('invalid XML format');  // prefix check
+        if ($this->input[$this->i] != "\"")
+            throw new Exception('invalid XML format, expected attribute value');  // prefix check
 
         $value = "";
 
@@ -120,10 +162,32 @@ class xmlParser {
         return $value;
     }
 
-    private function skip2EOT () {                    // skips to end of the actual tag
-        while ($this->input[$this->i] != ">")
+    private function getTagValue () {
+
+        while (trim($this->input[$this->i]) == "")  // skip whitespaces
             ++$this->i;
-        ++$this->i;
+
+        $value = '';
+
+        --$this->i;                                 // preparation
+
+        while ($this->input[++$this->i] != "<")     // save value of the attribute
+            $value .= $this->input[$this->i];
+
+        return $value;
+    }
+
+    private function getEndTag () {
+        if ($this->input[++$this->i] != '/')
+            throw new Exception('invalid XML format, expected end of the tag');
+
+        $tag = '';
+
+        while ($this->input[++$this->i] != ">")
+            $tag .= $this->input[$this->i];
+
+        $this->i++;
+        return $tag;
     }
 
     private function getQueryCommand () {       // returns next query command
@@ -143,10 +207,6 @@ class xmlParser {
     }
 
     // setters functions
-
-    public function setQuery ($query) {     // sets and parse input query
-        $this->query = explode(" ", $query);
-    }
 
     public function add2InputFront ($input) {     // adds input to front
             $this->inputFront = $input;

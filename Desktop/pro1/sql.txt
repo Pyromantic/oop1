@@ -1,1 +1,1 @@
-SELECT book FROM library WHERE title CONTAINS "XML"
+SELECT book FROM library
