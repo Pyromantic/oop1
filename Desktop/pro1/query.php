@@ -19,7 +19,7 @@ class query {
 
 
     function __construct () {
-        $this->xmlParser = new xmlParser();     // allocates new XML parser
+
     }
 
     function __destruct () {
@@ -31,24 +31,19 @@ class query {
 
         //var_dump($this->input);
 
-        // var_dump($database[$root][0]['library'][0]['room'][1]['book'][0]['author']);
+  // var_dump($database[$root][0]['library'][0]['room'][1]['book'][0]['author']);
 
 
         $this->applyFrom();     // apply FROM Command
 
         $this->applySelect();   // apply SELECT Command
 
-        
-
-
-
-        var_dump($this->output);
     }
 
     private function applyFrom () {         // apply SQL FROM, result stored in $output
         foreach ($this->input as $tag) {
             if (isset($tag[$this->from])) {
-                $this->output[] = $tag[$this->from];
+                $this->output[] = $tag;
             } else $this->digData($tag, $this->from);
         }
     }
@@ -73,11 +68,12 @@ class query {
 
         foreach($input as $tag) {
             if (isset($tag[$seek])) {
-                $this->output[] = $tag[$seek];
+                $this->output[] = $tag;
             } else $this->digData($tag, $seek);
         }
 
     }
+
 
     public function parseQuery ($query) {            // parse Query and sets individual elements
 
@@ -130,6 +126,7 @@ class query {
 
     }
 
+
     private function getSelect ($element) {     // implements select
         if ($this->select != $element)
             return true;
@@ -173,9 +170,17 @@ class query {
     private function setWhere ($element) {      // set select element
         $this->where = $element;
     }
+
+
     // setters functions
 
     public function setParsedXml ($parsedXml) {       // sets XML parser
         $this->input = $parsedXml;
+    }
+
+    // getters functions
+
+    public function getOutputXML () {
+        return $this->output;
     }
 }

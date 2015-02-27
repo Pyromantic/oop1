@@ -3,8 +3,8 @@
 
     <library>
         <room id="1">
-            <book id="bk101">
-                <author>Gambardella, Matthew</author>
+            <book id="bk101" number="pes">
+                <author id="42">Gambardella, Matthew</author>
                 <title>XML Developer's Guide</title>
             </book>
             <book id="bk102">

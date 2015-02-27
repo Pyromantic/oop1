@@ -2,6 +2,7 @@
 require 'arguments.php';                // Arguments Class
 require 'xmlParser.php';                // XML Parser Class
 require 'query.php';                    // query Class
+require 'xmlFileGenerator.php';         // XML file generator Class
 
 try {
     $args = new arguments($argc);       // new args Class
@@ -33,6 +34,17 @@ try {
 } catch (Exception $e) {
     die('Caught exception: ' . $e->getMessage() . "\n");
 }
+
+$xmlGenerator = new xmlFileGenerator($args->getOutput());   // new XML File Generator
+
+$xmlGenerator->setXML($query->getOutputXML());  // sets parsed XML
+
+try {
+    $xmlGenerator->generateXML();              // generates XML file
+} catch (Exception $e) {
+    die('Caught exception: ' . $e->getMessage() . "\n");
+}
+
 
 /**
  * Created by PhpStorm.
