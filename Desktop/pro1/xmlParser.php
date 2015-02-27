@@ -11,8 +11,7 @@ class xmlParser {
     private $inputFront;    // input front
     private $input;         // actual processing XML
     private $i;             // actual position in input
-    private $output;        // output XML string
-
+    private $output;        // parsed XML
 
     function __construct () {
 
@@ -29,11 +28,14 @@ class xmlParser {
         $this->i = 0;                       // sets position index
 
         $this->parseXmlHeader();            // checks XML header
-    }
 
-    public function saveOutput ($outputFile) {
+        $root = $this->getRootTag ();       // gets root tag
 
+        $database = array();
 
+        $database[$root][] = $this->getNextTag();   // gets next XML tag
+
+        $this->output = $database;
     }
 
     private function parseXmlHeader () {    // process XML header
@@ -57,13 +59,13 @@ class xmlParser {
 
     private function getRootTag () {
         while ((isset($this->input[$this->i])) &&
-               ($this->input[$this->i] != '<'))       // till prefix is find
+            ($this->input[$this->i] != '<'))       // till prefix is find
             ++$this->i;
 
         $tag = $this->determinateTag();               // get Tag
 
         while ((isset($this->input[$this->i])) &&
-               ($this->input[$this->i] != '>'))       // skips till postfix is find
+            ($this->input[$this->i] != '>'))       // skips till postfix is find
             ++$this->i;
 
         ++$this->i;                                   // skips postfix
@@ -77,29 +79,28 @@ class xmlParser {
 
         if ($this->input[$this->i] == '<') {            // checks for next attribute
 
-                $tag = array();
+            $tag = array();
 
-                $tagName = $this->determinateTag();             // get tag
+            $tagName = $this->determinateTag();             // get tag
 
-                $tagAttrName = $this->getTagAttribute();        // get tags attribute
+            $tagAttrName = $this->getTagAttribute();        // get tags attribute
 
-                while (isset($tagAttrName)) {
+            while (isset($tagAttrName)) {
 
-                    $tagAttrValue = $this->getAttributeValue(); // get value of attribute
+                $tagAttrValue = $this->getAttributeValue(); // get value of attribute
 
-                    $tag[$tagAttrName] = $tagAttrValue;         // store into array
+                $tag[$tagAttrName][] = $tagAttrValue;       // store into array
 
-                    $tagAttrName = $this->getTagAttribute();    // get tags attribute
-                }
+                $tagAttrName = $this->getTagAttribute();    // get tags attribute
+            }
 
-                $value = $this->getTagValue();                  // gets tag value
+            $value = $this->getTagValue();                  // gets tag value
 
-                if (isset($value))
-                    $tag[$tagName] = $value;
-
-
+            if (isset($value))
+                $tag[$tagName][] = $value;
+            else
             while ($this->input[$this->i + 1] != '/') {
-                $tag[$tagName] = $this->getNextTag();
+                $tag[$tagName][] = $this->getNextTag();
 
                 while (trim($this->input[$this->i]) == "")      // skip whitespaces
                     ++$this->i;
@@ -120,7 +121,7 @@ class xmlParser {
         $tag = '';
         while ((isset($this->input[++$this->i])) &&
             (trim($this->input[$this->i]) != "") &&
-               ($this->input[$this->i] != '>'))       // while not whitespace
+            ($this->input[$this->i] != '>'))       // while not whitespace
             $tag .= $this->input[$this->i];
         return $tag;
     }
@@ -152,7 +153,7 @@ class xmlParser {
         if ($this->input[$this->i] != "\"")
             throw new Exception('invalid XML format, expected attribute value');  // prefix check
 
-        $value = "";
+        $value = NULL;
 
         while ($this->input[++$this->i] != "\"")     // save value of the attribute
             $value .= $this->input[$this->i];
@@ -167,7 +168,7 @@ class xmlParser {
         while (trim($this->input[$this->i]) == "")  // skip whitespaces
             ++$this->i;
 
-        $value = '';
+        $value = NULL;
 
         --$this->i;                                 // preparation
 
@@ -190,13 +191,6 @@ class xmlParser {
         return $tag;
     }
 
-    private function getQueryCommand () {       // returns next query command
-        static $i = 0;
-        $retval = $this->query[$i];
-        $i++;
-        return $retval;
-    }
-
     private function setNextInput () {      // sets active input
 
         $file = fopen($this->inputFront, 'r') or die ('Soubor ' . $this->inputFront . ' nelze otevřít' . "\n");
@@ -209,8 +203,13 @@ class xmlParser {
     // setters functions
 
     public function add2InputFront ($input) {     // adds input to front
-            $this->inputFront = $input;
+        $this->inputFront = $input;
     }
 
     // getter functions
+
+    public function getParsedXml () {
+        return $this->output;
+    }
+
 }

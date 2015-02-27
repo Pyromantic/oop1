@@ -6,13 +6,11 @@
  * Time: 15:04
  */
 
-require 'xmlParser.php';                // XML Parser Class
-
-
 class query {
 
     private $query;          // SQL query
-    private $xmlParser;      // XML parser
+    private $input;          // parsed XML
+    private $output;
 
     private $select;         // select Element
     private $limit;          // limit Element
@@ -31,13 +29,53 @@ class query {
 
     public function applyQuery () {
 
-        $parser = &$this->xmlParser;
+        //var_dump($this->input);
 
-        $parser->parseXml();            // starts parsing given XML
-
-
+        // var_dump($database[$root][0]['library'][0]['room'][1]['book'][0]['author']);
 
 
+        $this->applyFrom();     // apply FROM Command
+
+        $this->applySelect();   // apply SELECT Command
+
+        
+
+
+
+        var_dump($this->output);
+    }
+
+    private function applyFrom () {         // apply SQL FROM, result stored in $output
+        foreach ($this->input as $tag) {
+            if (isset($tag[$this->from])) {
+                $this->output[] = $tag[$this->from];
+            } else $this->digData($tag, $this->from);
+        }
+    }
+
+    private function applySelect () {       // apply SQL SELECT, result stored in $output
+
+        $this->input = $this->output;           // sets newly parsed input
+
+        $this->output = NULL;
+
+        foreach ($this->input as $tag) {
+            if (isset($tag[$this->select])) {
+                $this->output[] = $tag[$this->select];
+            } else $this->digData($tag, $this->select);
+        }
+    }
+
+    private function digData ($input, $seek) {
+
+        if (!is_array($input))
+            return;
+
+        foreach($input as $tag) {
+            if (isset($tag[$seek])) {
+                $this->output[] = $tag[$seek];
+            } else $this->digData($tag, $seek);
+        }
 
     }
 
@@ -46,6 +84,8 @@ class query {
         $query = explode(" ", $query);
 
         $count = count($query) - 1;       // counts elements of query
+
+        $query[$count] = substr($query[$count], 0, -1);
 
         $rule = 0;
 
@@ -102,7 +142,7 @@ class query {
 
     }
 
-    private function  getFrom ($element) {      // implements from
+    private function getFrom ($element) {      // implements from
         if ($this->from != $element)
             return true;
         else
@@ -135,7 +175,7 @@ class query {
     }
     // setters functions
 
-    public function setXmlParser (&$parser) {       // sets XML parser
-        $this->xmlParser = $parser;
+    public function setParsedXml ($parsedXml) {       // sets XML parser
+        $this->input = $parsedXml;
     }
 }

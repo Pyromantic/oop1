@@ -3,23 +3,15 @@
 
     <library>
         <room id="1">
-
             <book id="bk101">
                 <author>Gambardella, Matthew</author>
-                <author>kokotko</author>
                 <title>XML Developer's Guide</title>
             </book>
-
+            <book id="bk102">
+                <author>olda</author>
+                <title>Klima</title>
+            </book>
         </room>
-    </library>
-
-    <library>
-
-        <book id="bk102">
-            <author>Gambardella</author>
-            <title>XML Developer's</title>
-        </book>
-
     </library>
 
 </catalog>

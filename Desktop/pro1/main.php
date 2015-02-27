@@ -1,5 +1,6 @@
 <?php
 require 'arguments.php';                // Arguments Class
+require 'xmlParser.php';                // XML Parser Class
 require 'query.php';                    // query Class
 
 try {
@@ -15,9 +16,15 @@ $xmlParser = new xmlParser();           // new XML parser
 
 $xmlParser->add2InputFront($args->getInput());  // sets input for XML parser
 
+try {
+    $xmlParser->parseXml();               // parse XML
+} catch (Exception $e) {
+    die('Caught exception: ' . $e->getMessage() . "\n");
+}
+
 $query = new query();                   // new query applier
 
-$query->setXmlParser($xmlParser);       // sets XML parser to query applier
+$query->setParsedXml($xmlParser->getParsedXml());   // sets parsed XML
 
 $query->parseQuery($args->getQuery());    // sets query
 
