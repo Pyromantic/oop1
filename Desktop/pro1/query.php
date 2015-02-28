@@ -16,6 +16,7 @@ class query {
     private $limit;          // limit Element
     private $from;           // from Element
     private $where;          // where Element
+    private $contains;       // contains Element
 
 
     function __construct () {
@@ -29,10 +30,6 @@ class query {
 
     public function applyQuery () {
 
-        //var_dump($this->input);
-
-  // var_dump($database[$root][0]['library'][0]['room'][1]['book'][0]['author']);
-
 
         $this->applyFrom();     // apply FROM Command
 
@@ -40,16 +37,16 @@ class query {
 
         $this->applyLimit();    // apply LIMIT Command
 
-        $this->applyWhere();    // apply Where Command
+        $this->applyWhere();    // apply WHERE Command
 
     }
 
     private function applyFrom () {         // apply SQL FROM, result stored in $output
-        foreach ($this->input as $tag) {
-            if (isset($tag[$this->from])) {
-                $this->output[] = $tag;
-            } else $this->digData($tag, $this->from);
+        if (empty($this->from)) {
+            $this->output = $this->input;
+            return;
         }
+        $this->digDataByFrom($this->input, $this->from);
     }
 
     private function applySelect () {       // apply SQL SELECT, result stored in $output
@@ -58,54 +55,103 @@ class query {
 
         $this->output = NULL;
 
-        foreach ($this->input as $tag) {
-            if (isset($tag[$this->select])) {
-                $this->output[] = $tag[$this->select];
-            } else $this->digData($tag, $this->select);
-        }
+        $this->digDataBySelect($this->input, $this->select);
     }
 
     private function applyLimit () {    // apply SQL LIMIT Command
         if (empty($this->limit))
             return;
 
-        $tmp = $this->output;
+        $this->input = $this->output;
 
         $this->output = NULL;
 
-        foreach ($tmp as $key)
+        foreach ($this->input as $key)
             if ($this->limit--)
                 $this->output[] = $key;
             else
                 break;
     }
 
-    private function applyWhere () {
+    private function applyWhere () {    // apply SQL WHERE Command
+
+        $this->input = $this->output;
+
+        $this->output = NULL;
+
+        foreach ($this->input as $tag) {
+           if ($this->digDataByWhere($tag))
+               $this->output[] = $tag;
+        }
+
 
     }
 
-
-    private function digData ($input, $seek) {
-
+    private function digDataByFrom ($input, $seek) {
         if (!is_array($input))
             return;
 
         foreach($input as $tag) {
             if (isset($tag[$seek])) {
                 $this->output[] = $tag;
-            } else $this->digData($tag, $seek);
+                return;
+            } else $this->digDataByFrom($tag, $seek);
         }
 
     }
 
+    private function digDataBySelect ($input, $seek) {
+        if (!is_array($input))
+            return;
+
+        foreach($input as $tag) {
+            if (isset($tag[$seek])) {
+                $this->output[] = $tag;
+            } else $this->digDataBySelect($tag, $seek);
+        }
+
+    }
+
+    private function digDataByWhere ($input) {
+        if (!is_array($input))
+            return false;
+
+        $retval = false;
+
+        foreach ($input as $key => $tag) {
+            $val = $this->whereCondition($key, $tag);
+            if ($val) {
+                return true;
+            } else {
+                $retval = $this->digDataByWhere ($tag);
+            }
+        }
+        return $retval;
+    }
+
+    private function whereCondition ($key, $input) {
+
+        if ($this->where === $key) {
+            if (is_array($input)) {
+                foreach ($input as $tag) {
+                    if ($this->contains === $tag)
+                        return true;
+                }
+            } else {
+                var_dump($input);
+                if ($this->contains === $input)
+                    return true;
+            }
+        }
+
+        return false;
+    }
 
     public function parseQuery ($query) {   // parse Query and sets individual elements
 
         $query = explode(" ", trim($query));
 
         $count = count($query) - 1;       // counts elements of query
-
-//        $query[$count] = substr($query[$count], 0, -1);
 
         for ($i = 0, $rule = 0; $i < $count; ++$rule)
             switch ($rule) {
@@ -134,9 +180,17 @@ class query {
 
 
                 case 3 :
-
-                    if ($query[$i] == 'WHERE')
+                    if ($query[$i] == 'WHERE') {
                         $this->setWhere($query[++$i]);
+                        ++$i;
+                    }
+                    break;
+
+                case 4 :
+                    if ($query[$i] == 'CONTAINS'){
+                        $this->setContains($query[++$i]);
+                        ++$i;
+                    }
 
                     break;
 
@@ -161,13 +215,22 @@ class query {
     }
 
     private function setFrom ($element) {
-        $this->from = $element;
+        if ($element != 'ROOT')
+            $this->from = $element;
     }
 
     private function setWhere ($element) {      // set select element
         $this->where = $element;
     }
 
+    private function setContains ($element) {   // set contains element
+        if (($element[0] != "\"") && ($element[strlen($element)-1] != "\""))
+            throw new Exception('CONTAINS Element must be string');
+
+        $element = trim($element, "\"");
+
+        $this->contains = $element;
+    }
 
     // public setters functions
 

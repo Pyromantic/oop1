@@ -5,14 +5,21 @@
         <room id="1">
             <book id="bk101" number="pes">
                 <author id="42">Gambardella, Matthew</author>
-                <title>XML Developer's Guide</title>
+                <title>koska</title>
+
             </book>
         </room>
-            <book id="bk102">
-                <author>olda</author>
-                <title>Klima</title>
-            </book>
+        <book id="bk105">
+            <author>shieet</author>
+            <title>XML Developer's Guide</title>
+        </book>
+    </library>
 
+    <library>
+        <book id="bk102">
+            <author>olda</author>
+            <title>Klima</title>
+        </book>
     </library>
 
 </catalog>

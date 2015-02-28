@@ -29,11 +29,9 @@ class xmlParser {
 
         $this->parseXmlHeader();            // checks XML header
 
-        $root = $this->getRootTag ();       // gets root tag
-
         $database = array();
 
-        $database[$root][] = $this->getNextTag();   // gets next XML tag
+        $database[] = $this->getNextTag();  // gets next XML tag
 
         $this->output = $database;
     }
@@ -55,22 +53,6 @@ class xmlParser {
             } else ++$this->i;
         }
 
-    }
-
-    private function getRootTag () {
-        while ((isset($this->input[$this->i])) &&
-            ($this->input[$this->i] != '<'))       // till prefix is find
-            ++$this->i;
-
-        $tag = $this->determinateTag();               // get Tag
-
-        while ((isset($this->input[$this->i])) &&
-            ($this->input[$this->i] != '>'))       // skips till postfix is find
-            ++$this->i;
-
-        ++$this->i;                                   // skips postfix
-
-        return $tag;
     }
 
     private function getNextTag () {       // returns next XML tag in given input

@@ -1,1 +1,1 @@
-SELECT book LIMIT 3 FROM library
+SELECT book LIMIT 3 FROM ROOT WHERE title CONTAINS "Klima"
