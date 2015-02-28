@@ -27,10 +27,10 @@ $query = new query();                   // new query applier
 
 $query->setParsedXml($xmlParser->getParsedXml());   // sets parsed XML
 
-$query->parseQuery($args->getQuery());    // sets query
-
 try {
-    $query->applyQuery();               // applies query
+    $query->parseQuery($args->getQuery());    // sets query
+
+    $query->applyQuery();                     // applies query
 } catch (Exception $e) {
     die('Caught exception: ' . $e->getMessage() . "\n");
 }

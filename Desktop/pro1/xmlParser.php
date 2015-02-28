@@ -200,13 +200,13 @@ class xmlParser {
         fclose($file);
     }
 
-    // setters functions
+    // public setters functions
 
     public function add2InputFront ($input) {     // adds input to front
         $this->inputFront = $input;
     }
 
-    // getter functions
+    // public getter functions
 
     public function getParsedXml () {
         return $this->output;

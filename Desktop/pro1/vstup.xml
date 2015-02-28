@@ -7,11 +7,12 @@
                 <author id="42">Gambardella, Matthew</author>
                 <title>XML Developer's Guide</title>
             </book>
+        </room>
             <book id="bk102">
                 <author>olda</author>
                 <title>Klima</title>
             </book>
-        </room>
+
     </library>
 
 </catalog>

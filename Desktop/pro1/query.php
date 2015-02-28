@@ -10,7 +10,7 @@ class query {
 
     private $query;          // SQL query
     private $input;          // parsed XML
-    private $output;
+    private $output;         // applied SQL on parsed XML
 
     private $select;         // select Element
     private $limit;          // limit Element
@@ -38,6 +38,10 @@ class query {
 
         $this->applySelect();   // apply SELECT Command
 
+        $this->applyLimit();    // apply LIMIT Command
+
+        $this->applyWhere();    // apply Where Command
+
     }
 
     private function applyFrom () {         // apply SQL FROM, result stored in $output
@@ -61,6 +65,26 @@ class query {
         }
     }
 
+    private function applyLimit () {    // apply SQL LIMIT Command
+        if (empty($this->limit))
+            return;
+
+        $tmp = $this->output;
+
+        $this->output = NULL;
+
+        foreach ($tmp as $key)
+            if ($this->limit--)
+                $this->output[] = $key;
+            else
+                break;
+    }
+
+    private function applyWhere () {
+
+    }
+
+
     private function digData ($input, $seek) {
 
         if (!is_array($input))
@@ -75,84 +99,54 @@ class query {
     }
 
 
-    public function parseQuery ($query) {            // parse Query and sets individual elements
+    public function parseQuery ($query) {   // parse Query and sets individual elements
 
-        $query = explode(" ", $query);
+        $query = explode(" ", trim($query));
 
         $count = count($query) - 1;       // counts elements of query
 
-        $query[$count] = substr($query[$count], 0, -1);
+//        $query[$count] = substr($query[$count], 0, -1);
 
-        $rule = 0;
-
-        for ($i = 0; $i < $count; ++$i)
-            switch ($query[$i]) {
-                case 'SELECT' :
-                    if ($i == 0)
+        for ($i = 0, $rule = 0; $i < $count; ++$rule)
+            switch ($rule) {
+                case 0 :
+                    if ($query[$i] == 'SELECT')
                         $this->setSelect($query[++$i]);
                     else
-                        throw new Exception('select expected');
-                    ++$rule;
+                        throw new Exception('wrong position of SELECT Command');
+                    ++$i;
                     break;
 
-                case 'LIMIT' :
-
-
-
+                case 1 :
+                    if ($query[$i] == 'LIMIT') {
+                        $this->setLimit($query[++$i]);
+                        ++$i;
+                    }
                     break;
 
-                case 'FROM' :
-
-                   $this->setFrom($query[++$i]);
-
-
-
+                case 2 :
+                    if ($query[$i] == 'FROM')
+                        $this->setFrom($query[++$i]);
+                    else
+                        throw new Exception('wrong position of FROM Command');
+                    ++$i;
                     break;
 
 
-                case 'WHERE' :
+                case 3 :
 
-
+                    if ($query[$i] == 'WHERE')
+                        $this->setWhere($query[++$i]);
 
                     break;
 
                 default :
 
-                    throw new Exception('Unknown querry command' . $this->query[$i]);
+                    throw new Exception('Unknown query command' . $this->query[$i]);
 
                     break;
             }
-
-
     }
-
-
-    private function getSelect ($element) {     // implements select
-        if ($this->select != $element)
-            return true;
-        else
-            return false;
-    }
-
-    private function getLimit ($element) {      // implements limit
-
-
-    }
-
-    private function getFrom ($element) {      // implements from
-        if ($this->from != $element)
-            return true;
-        else
-            return false;
-    }
-
-    private function getWhere ($element) {      // implements where
-        if ($this->where != $element)
-            return true;
-        else
-            return false;
-    }
-
 
 
     private function setSelect ($element) {     // set select element
@@ -160,7 +154,10 @@ class query {
     }
 
     private function setLimit ($element) {
-        $this->from = $element;
+        if (!ctype_digit($element))
+            throw new Exception('SQL LIMIT command must be NUMERIC and INTEGER');
+
+        $this->limit = intval($element);
     }
 
     private function setFrom ($element) {
@@ -172,13 +169,13 @@ class query {
     }
 
 
-    // setters functions
+    // public setters functions
 
     public function setParsedXml ($parsedXml) {       // sets XML parser
         $this->input = $parsedXml;
     }
 
-    // getters functions
+    // public getters functions
 
     public function getOutputXML () {
         return $this->output;

@@ -1,1 +1,1 @@
-SELECT book FROM library
+SELECT book LIMIT 3 FROM library
