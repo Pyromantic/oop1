@@ -79,15 +79,13 @@ class query {
 
         $this->output = NULL;
 
-        foreach ($this->input as $tag) {
+        foreach ($this->input as $tag)         // iterate through actual tag
            if ($this->digDataByWhere($tag))
                $this->output[] = $tag;
-        }
-
 
     }
 
-    private function digDataByFrom ($input, $seek) {
+    private function digDataByFrom ($input, $seek) {    //  iterates through given array
         if (!is_array($input))
             return;
 
@@ -100,7 +98,7 @@ class query {
 
     }
 
-    private function digDataBySelect ($input, $seek) {
+    private function digDataBySelect ($input, $seek) {  //  iterates through given array
         if (!is_array($input))
             return;
 
@@ -112,39 +110,37 @@ class query {
 
     }
 
-    private function digDataByWhere ($input) {
+    private function digDataByWhere ($input) {  //  iterates through given array
         if (!is_array($input))
             return false;
 
-        $retval = false;
+        $found = false;
 
-        foreach ($input as $key => $tag) {
-            $val = $this->whereCondition($key, $tag);
-            if ($val) {
+        foreach ($input as $tag)
+            if ($this->whereCondition($tag))     // apply where condition on actual tag
                 return true;
-            } else {
-                $retval = $this->digDataByWhere ($tag);
-            }
-        }
-        return $retval;
+            else
+                $found = $this->digDataByWhere ($tag);
+
+        return $found;
     }
 
-    private function whereCondition ($key, $input) {
+    private function whereCondition ($input) {
+        if (!is_array($input))
+            return false;
 
-        if ($this->where === $key) {
-            if (is_array($input)) {
-                foreach ($input as $tag) {
-                    if ($this->contains === $tag)
-                        return true;
+        $result = false;
+
+        foreach ($this->where as $index) {
+            if (isset($input[$index]))
+                foreach ($input[$index] as $value) {
+                    if ($value === $this->contains)
+                        $result = true;
+                    elseif ($result != true)
+                        $result = false;
                 }
-            } else {
-                var_dump($input);
-                if ($this->contains === $input)
-                    return true;
-            }
         }
-
-        return false;
+        return $result;
     }
 
     public function parseQuery ($query) {   // parse Query and sets individual elements
@@ -187,7 +183,7 @@ class query {
                     break;
 
                 case 4 :
-                    if ($query[$i] == 'CONTAINS'){
+                    if ($query[$i] == 'CONTAINS') {
                         $this->setContains($query[++$i]);
                         ++$i;
                     }
@@ -207,20 +203,20 @@ class query {
         $this->select = $element;
     }
 
-    private function setLimit ($element) {
+    private function setLimit ($element) {      // sets limit element
         if (!ctype_digit($element))
             throw new Exception('SQL LIMIT command must be NUMERIC and INTEGER');
 
         $this->limit = intval($element);
     }
 
-    private function setFrom ($element) {
+    private function setFrom ($element) {       // sets from element
         if ($element != 'ROOT')
             $this->from = $element;
     }
 
     private function setWhere ($element) {      // set select element
-        $this->where = $element;
+        $this->where = array_reverse(explode ('.', $element));
     }
 
     private function setContains ($element) {   // set contains element

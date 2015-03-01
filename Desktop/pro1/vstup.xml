@@ -17,7 +17,7 @@
 
     <library>
         <book id="bk102">
-            <author>olda</author>
+            <author id="24">olda</author>
             <title>Klima</title>
         </book>
     </library>

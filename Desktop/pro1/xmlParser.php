@@ -29,11 +29,9 @@ class xmlParser {
 
         $this->parseXmlHeader();            // checks XML header
 
-        $database = array();
+        $this->output = array();
 
-        $database[] = $this->getNextTag();  // gets next XML tag
-
-        $this->output = $database;
+        $this->output[] = $this->getNextTag();  // gets next XML tag
     }
 
     private function parseXmlHeader () {    // process XML header
