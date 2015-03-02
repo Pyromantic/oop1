@@ -37,10 +37,14 @@ try {
 
 $xmlGenerator = new xmlFileGenerator($args->getOutput());   // new XML File Generator
 
-$xmlGenerator->setXML($query->getOutputXML());  // sets parsed XML
+$xmlGenerator->setNFlag($args->getNFlag());                      // sets N flag
+$xmlGenerator->setFilename($args->getOutput());   // sets output filename
+$xmlGenerator->setRoot($args->getRoot());       // sets root tag name
+
+$xmlGenerator->setXML($query->getOutputXML());  // sets parsed XMLl
 
 try {
-    $xmlGenerator->generateXML();              // generates XML file
+    $xmlGenerator->generateXML();               // generates XML file
 } catch (Exception $e) {
     die('Caught exception: ' . $e->getMessage() . "\n");
 }

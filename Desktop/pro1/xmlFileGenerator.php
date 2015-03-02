@@ -11,6 +11,8 @@ class xmlFileGenerator {
     private $input;         // input array
     private $fileName;      // Name of the output File, if empty => stdout
     private $output;        // output XML string
+    private $nFlag;         // n Flag
+    private $root;          // root tag name
 
 
     function __construct ($outputFile) {
@@ -24,10 +26,18 @@ class xmlFileGenerator {
 
     public function generateXML () {
 
+        if (isset($this->nFlag))
+            $this->output = "<?xml version=\"1.0\"?>\n";
 
-        foreach ($this->input as $input) {
-            $this->nestIn($input);
-        }
+        if (isset($this->root))
+            $this->output .= '<' . $this->root . ">\n";
+
+        if (isset($input))
+            foreach ($this->input as $input)
+                $this->nestIn($input);      // nests into
+
+        if (isset($this->root))
+            $this->output = '</' . $this->root . ">";
 
         var_dump( $this->output);
 
@@ -35,34 +45,31 @@ class xmlFileGenerator {
 
     }
 
-    private function nestIn ($input) {
+    private function nestIn ($input) {  // nests into given array of XML tags and values
         if (is_array($input))
-            $last = array_search(end($input), $input);
+            $last = array_search(end($input), $input);      // get last item of array
         else {
-           $this->output .= $input . "\n";
+           $this->output .= $input . "\n";                  // tag value
             return;
         }
 
         $print = '';
 
-        foreach ($input as $key => $tag) {
-            if ($key != $last) {
+        foreach ($input as $key => $tag)
+            if ($key != $last) {               // not last item, attribute expected
                 foreach ($tag as $tag2)
                  $print .= ' ' . $key . '="' . $tag2 . "\"" ;
 
             } else {
-                $print = '<' . $key . $print . ">\n";
+                $print = '<' . $key . $print . ">\n";   // tag
                 $this->output .= $print;
 
                 foreach ($tag as $tag2)
-                    $this->nestIn($tag2);
+                    $this->nestIn($tag2);               // nests in to print value
 
-                $print = '</' . $key . ">\n";
+                $print = '</' . $key . ">\n";           // end of the tag
                  $this->output .= $print;
             }
-
-        }
-
     }
 
     private function createFile () {    // generates an output file
@@ -77,8 +84,19 @@ class xmlFileGenerator {
 
     // setters functions
 
-    public function setXML ($input) {
+    public function setXML ($input) {       // sets input XML
         $this->input = $input;
     }
 
+    public function setFilename ($name) {   // sets output file name
+        $this->fileName = $name;
+    }
+
+    public function setNFlag ($flag) {      // sets n flag
+        $this->nFlag = $flag;
+    }
+
+    public function setRoot ($root) {       // sets root tag
+        $this->root = $root;
+    }
 }

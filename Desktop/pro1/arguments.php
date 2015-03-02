@@ -18,6 +18,8 @@ class arguments             // process and store given arguments
         if ($argCount < 2) {             // input args count test
             throw new Exception('Nebyl zadán žádný argument');
         }
+        $this->nFlag = false;
+        $this->root = NULL;
     }
 
     function __destruct () {        // class destruct
