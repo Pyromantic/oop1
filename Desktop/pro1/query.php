@@ -38,7 +38,7 @@ class query {
 
 
     private function applyFrom () {         // apply SQL FROM, result stored in $output
-        if (empty($this->query['FROM'])) {
+        if ($this->query['FROM'] === 'ROOT') {
             $this->output = $this->input;
             return;
         }
@@ -207,10 +207,7 @@ class query {
     }
 
     private function getFrom ($element) {       // sets from element
-        if ($element != 'ROOT')
-            return $element;
-
-        return NULL;
+        return $element;
     }
 
     private function getWhere ($element) {      // set select element
