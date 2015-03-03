@@ -32,9 +32,9 @@ class xmlFileGenerator {
         if (isset($this->root))
             $this->output .= '<' . $this->root . ">\n";
 
-        if (isset($input))
+        if (isset($this->input))
             foreach ($this->input as $input)
-                $this->nestIn($input);      // nests into
+                $this->nestIn($input);          // nests into
 
         if (isset($this->root))
             $this->output = '</' . $this->root . ">";

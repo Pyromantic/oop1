@@ -8,15 +8,9 @@
 
 class query {
 
-    private $query;          // SQL query
+    private $query;          // parsed SQL query
     private $input;          // parsed XML
     private $output;         // applied SQL on parsed XML
-
-    private $select;         // select Element
-    private $limit;          // limit Element
-    private $from;           // from Element
-    private $where;          // where Element
-    private $contains;       // contains Element
 
 
     function __construct () {
@@ -30,59 +24,25 @@ class query {
 
     public function applyQuery () {
 
+        $this->applyFrom();         // apply FROM Command
 
-        $this->applyFrom();     // apply FROM Command
+        $this->applySelect();       // apply SELECT Command
 
-        $this->applySelect();   // apply SELECT Command
+        if (isset($this->query['LIMIT']))
+            $this->applyLimit();    // apply LIMIT Command
 
-        $this->applyLimit();    // apply LIMIT Command
-
-        $this->applyWhere();    // apply WHERE Command
+        if (isset($this->query['WHERE']))
+            $this->applyWhere();    // apply WHERE Command
 
     }
 
+
     private function applyFrom () {         // apply SQL FROM, result stored in $output
-        if (empty($this->from)) {
+        if (empty($this->query['FROM'])) {
             $this->output = $this->input;
             return;
         }
-        $this->digDataByFrom($this->input, $this->from);
-    }
-
-    private function applySelect () {       // apply SQL SELECT, result stored in $output
-
-        $this->input = $this->output;           // sets newly parsed input
-
-        $this->output = NULL;
-
-        $this->digDataBySelect($this->input, $this->select);
-    }
-
-    private function applyLimit () {    // apply SQL LIMIT Command
-        if (empty($this->limit))
-            return;
-
-        $this->input = $this->output;
-
-        $this->output = NULL;
-
-        foreach ($this->input as $key)
-            if ($this->limit--)
-                $this->output[] = $key;
-            else
-                break;
-    }
-
-    private function applyWhere () {    // apply SQL WHERE Command
-
-        $this->input = $this->output;
-
-        $this->output = NULL;
-
-        foreach ($this->input as $tag)         // iterate through actual tag
-           if ($this->digDataByWhere($tag))
-               $this->output[] = $tag;
-
+        $this->digDataByFrom($this->input, $this->query['FROM']);
     }
 
     private function digDataByFrom ($input, $seek) {    //  iterates through given array
@@ -95,7 +55,15 @@ class query {
                 return;
             } else $this->digDataByFrom($tag, $seek);
         }
+    }
 
+
+    private function applySelect () {       // apply SQL SELECT, result stored in $output
+        $this->input = $this->output;           // sets newly parsed input
+
+        $this->output = NULL;
+
+        $this->digDataBySelect($this->input,$this->query['SELECT']);
     }
 
     private function digDataBySelect ($input, $seek) {  //  iterates through given array
@@ -107,6 +75,33 @@ class query {
                 $this->output[] = $tag;
             } else $this->digDataBySelect($tag, $seek);
         }
+
+    }
+
+
+    private function applyLimit () {    // apply SQL LIMIT Command
+
+        $this->input = $this->output;
+
+        $this->output = NULL;
+
+        foreach ($this->input as $key)
+            if ($this->query['LIMIT']--)
+                $this->output[] = $key;
+            else
+                break;
+    }
+
+
+    private function applyWhere () {    // apply SQL WHERE Command
+
+        $this->input = $this->output;
+
+        $this->output = NULL;
+
+        foreach ($this->input as $tag)         // iterate through actual tag
+           if ($this->digDataByWhere($tag))
+               $this->output[] = $tag;
 
     }
 
@@ -131,17 +126,18 @@ class query {
 
         $result = false;
 
-        foreach ($this->where as $index) {
+        foreach ($this->query['WHERE'] as $index)
             if (isset($input[$index]))
-                foreach ($input[$index] as $value) {
-                    if ($value === $this->contains)
+                foreach ($input[$index] as $value)
+                    if ($value === $this->query['CONTAINS'])
                         $result = true;
                     elseif ($result != true)
                         $result = false;
-                }
-        }
+
         return $result;
     }
+
+
 
     public function parseQuery ($query) {   // parse Query and sets individual elements
 
@@ -153,7 +149,7 @@ class query {
             switch ($rule) {
                 case 0 :
                     if ($query[$i] == 'SELECT')
-                        $this->setSelect($query[++$i]);
+                        $this->query['SELECT'] = $this->getSelect($query[++$i]);
                     else
                         throw new Exception('wrong position of SELECT Command');
                     ++$i;
@@ -161,14 +157,14 @@ class query {
 
                 case 1 :
                     if ($query[$i] == 'LIMIT') {
-                        $this->setLimit($query[++$i]);
+                        $this->query['LIMIT'] = $this->getLimit($query[++$i]);
                         ++$i;
                     }
                     break;
 
                 case 2 :
                     if ($query[$i] == 'FROM')
-                        $this->setFrom($query[++$i]);
+                       $this->query['FROM'] = $this->getFrom($query[++$i]);
                     else
                         throw new Exception('wrong position of FROM Command');
                     ++$i;
@@ -177,14 +173,14 @@ class query {
 
                 case 3 :
                     if ($query[$i] == 'WHERE') {
-                        $this->setWhere($query[++$i]);
+                         $this->query['WHERE'] = $this->getWhere($query[++$i]);
                         ++$i;
                     }
                     break;
 
                 case 4 :
                     if ($query[$i] == 'CONTAINS') {
-                        $this->setContains($query[++$i]);
+                         $this->query['CONTAINS'] = $this->getContains($query[++$i]);
                         ++$i;
                     }
 
@@ -199,33 +195,33 @@ class query {
     }
 
 
-    private function setSelect ($element) {     // set select element
-        $this->select = $element;
+    private function getSelect ($element) {     // set select element
+        return $element;
     }
 
-    private function setLimit ($element) {      // sets limit element
+    private function getLimit ($element) {      // sets limit element
         if (!ctype_digit($element))
             throw new Exception('SQL LIMIT command must be NUMERIC and INTEGER');
 
-        $this->limit = intval($element);
+        return intval($element);
     }
 
-    private function setFrom ($element) {       // sets from element
+    private function getFrom ($element) {       // sets from element
         if ($element != 'ROOT')
-            $this->from = $element;
+            return $element;
+
+        return NULL;
     }
 
-    private function setWhere ($element) {      // set select element
-        $this->where = array_reverse(explode ('.', $element));
+    private function getWhere ($element) {      // set select element
+        return array_reverse(explode ('.', $element));
     }
 
-    private function setContains ($element) {   // set contains element
+    private function getContains ($element) {   // set contains element
         if (($element[0] != "\"") && ($element[strlen($element)-1] != "\""))
             throw new Exception('CONTAINS Element must be string');
 
-        $element = trim($element, "\"");
-
-        $this->contains = $element;
+        return trim($element, "\"");
     }
 
     // public setters functions
