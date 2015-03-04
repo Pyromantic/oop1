@@ -6,12 +6,14 @@
             <book id="bk101" number="pes">
                 <author id="42">Gambardella, Matthew</author>
                 <title>koska</title>
+                <year>1992</year>
 
             </book>
         </room>
         <book id="bk105">
             <author>shieet</author>
             <title>XML Developer's Guide</title>
+            <year>2005</year>
         </book>
     </library>
 
@@ -19,6 +21,7 @@
         <book id="bk102">
             <author id="24">olda</author>
             <title>Klima</title>
+            <year>1900</year>
         </book>
     </library>
 

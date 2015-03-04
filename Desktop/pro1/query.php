@@ -105,11 +105,11 @@ class query {
             $this->output = NULL;
 
             if ($negation) {
-                foreach ($this->input as $tag)          // iterate through actual tag
+                foreach ($this->input as $tag)      // iterate through actual tag
                     if (!$this->digDataByWhere($tag, $actual))
                         $this->output[] = $tag;
             } else {
-                foreach ($this->input as $tag)          // iterate through actual tag
+                foreach ($this->input as $tag)      // iterate through actual tag
                     if ($this->digDataByWhere($tag, $actual))
                         $this->output[] = $tag;
             }
@@ -140,8 +140,17 @@ class query {
         $operator = end($actual);
 
         $condition =  function ($value) use ($operator) {       // evaluates condition
+
+            $key = key($operator);
+
+            if ($key == 'CONTAINS') {
+               if (strpos($value, $operator['CONTAINS']) !== false)
+                   return true;
+                else
+                   return false;
+            }
             return eval('return ' . '"' .
-                $value . '"'. $operator . '"' . $this->query['CONTAINS']
+                $value . '"'. $key . '"' . $operator[$key]
                 . '"' . ';');
         };
 
@@ -210,34 +219,21 @@ class query {
                             $inc();
                         }
 
-                        $condition = '==';
-
                         $getWhere = function ($element) {   // returns array of sought elements / attributes
                             return array_reverse(explode ('.', $element));
                         };
 
-                        $this->query['WHERE'][] = $getWhere ($query[$i]);
+                        $actual = (isset($this->query['WHERE'])) ? count($this->query['WHERE']) : 0 ;
 
-                        $actual = count($this->query['WHERE']) - 1;
+                        $this->query['WHERE'][$actual] = $getWhere ($query[$i]);
 
-                        array_push($this->query['WHERE'][$actual], $condition);
+                        $inc();
+
+                        array_push($this->query['WHERE'][$actual], $this->getCondition($inc, $query, $i));
+
                         $this->query['WHERE'][$actual]['NOT'] = $negation;
 
                         $inc();
-
-                    break;
-
-                case 4 && $query[$i] == 'CONTAINS':
-
-                        $getContains = function ($element) {
-                            if (($element[0] != "\"") && ($element[strlen($element)-1] != "\""))
-                                throw new Exception('CONTAINS Element must be string');
-                            return trim($element, "\"");
-                        };
-
-                         $this->query['CONTAINS'] = $getContains ($query[$inc()]);
-                        $inc();
-
                     break;
 
                 default :
@@ -246,6 +242,48 @@ class query {
 
                     break;
             }
+    }
+
+    private function getCondition ($inc, $query, &$i) {
+        if ($query[$i] == 'CONTAINS') {
+            $inc();
+            if (($query[$i][0] != "\"") && ($query[$i][strlen($query[$i])-1] != "\""))
+                throw new Exception('CONTAINS Element must be string');
+            $result['CONTAINS'] = trim($query[$i], "\"");
+            return $result;
+        }
+
+        $operand = NULL;
+
+        if ($query[$i] == '<')
+            $operand = $query[$i];
+
+        if ($query[$i] == '>')
+            $operand = $query[$i];
+
+        if ($query[$i] == '=')
+            $operand = $query[$i] . '=';
+
+        if (empty($operand))
+            throw new Exception ('SQL wrong operand');
+
+
+        $inc();
+
+        $value = '';
+
+        if (($query[$i][0] != "\"") && ($query[$i][strlen($query[$i])-1] != "\""))
+            $value = trim($query[$i], "\"");
+        else
+            if (ctype_digit($query[$i]))
+                $value = intval($query[$i]);
+            else
+                $value = $query[$i];
+
+
+        $result[$operand] = $query[$i];
+
+        return $result;
     }
 
     // public setters functions

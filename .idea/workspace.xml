@@ -4,7 +4,7 @@
     <list default="true" id="d7298300-b998-47ad-a876-ed0b31ad5dad" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Desktop/pro1/query.php" afterPath="$PROJECT_DIR$/Desktop/pro1/query.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Desktop/pro1/sql.txt" afterPath="$PROJECT_DIR$/Desktop/pro1/sql.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Desktop/pro1/vstup.xml" afterPath="$PROJECT_DIR$/Desktop/pro1/vstup.xml" />
     </list>
     <ignored path="oop1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -33,8 +33,8 @@
                 <file leaf-file-name="query.php" pinned="false" current-in-tab="true">
                   <entry file="file://$PROJECT_DIR$/Desktop/pro1/query.php">
                     <provider selected="true" editor-type-id="text-editor">
-                      <state vertical-scroll-proportion="0.39400208" vertical-offset="3021" max-vertical-offset="4431">
-                        <caret line="214" column="60" selection-start-line="214" selection-start-column="60" selection-end-line="214" selection-end-column="60" />
+                      <state vertical-scroll-proportion="0.39400208" vertical-offset="3168" max-vertical-offset="5313">
+                        <caret line="221" column="60" selection-start-line="221" selection-start-column="60" selection-end-line="221" selection-end-column="60" />
                         <folding>
                           <element signature="n#__construct#0;n#query#0;n#!!top" expanded="false" />
                           <element signature="n#__destruct#0;n#query#0;n#!!top" expanded="false" />
@@ -43,7 +43,6 @@
                           <element signature="n#applySelect#0;n#query#0;n#!!top" expanded="false" />
                           <element signature="n#digDataBySelect#0;n#query#0;n#!!top" expanded="false" />
                           <element signature="n#applyLimit#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="e#6642#6931#1#PHP" expanded="false" />
                         </folding>
                       </state>
                     </provider>
@@ -79,8 +78,8 @@
                 <file leaf-file-name="query.php" pinned="false" current-in-tab="true">
                   <entry file="file://$PROJECT_DIR$/Desktop/pro1/query.php">
                     <provider selected="true" editor-type-id="text-editor">
-                      <state vertical-scroll-proportion="0.67585444" vertical-offset="1361" max-vertical-offset="4515">
-                        <caret line="146" column="0" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
+                      <state vertical-scroll-proportion="0.6063947" vertical-offset="3860" max-vertical-offset="5145">
+                        <caret line="270" column="15" selection-start-line="270" selection-start-column="15" selection-end-line="270" selection-end-column="15" />
                         <folding>
                           <element signature="n#__construct#0;n#query#0;n#!!top" expanded="false" />
                           <element signature="n#__destruct#0;n#query#0;n#!!top" expanded="false" />
@@ -89,6 +88,8 @@
                           <element signature="n#applySelect#0;n#query#0;n#!!top" expanded="false" />
                           <element signature="n#digDataBySelect#0;n#query#0;n#!!top" expanded="false" />
                           <element signature="n#applyLimit#0;n#query#0;n#!!top" expanded="false" />
+                          <element signature="e#2611#3047#0#PHP" expanded="false" />
+                          <element signature="e#2835#3047#0#PHP" expanded="false" />
                         </folding>
                       </state>
                     </provider>
@@ -134,8 +135,8 @@
           <file leaf-file-name="main.php" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Desktop/pro1/main.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.37732658" vertical-offset="449" max-vertical-offset="1365">
-                  <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.51945853" vertical-offset="449" max-vertical-offset="1365">
+                  <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -206,8 +207,8 @@
           <file leaf-file-name="vstup.xml" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Desktop/pro1/vstup.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="651">
-                  <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714">
+                  <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
                   <folding />
                 </state>
               </provider>
@@ -217,7 +218,7 @@
             <entry file="file://$PROJECT_DIR$/Desktop/pro1/sql.txt">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="621">
-                  <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
+                  <caret line="0" column="45" selection-start-line="0" selection-start-column="45" selection-end-line="0" selection-end-column="45" />
                   <folding />
                 </state>
               </provider>
@@ -237,10 +238,10 @@
         <option value="$PROJECT_DIR$/Desktop/pro1/olda.txt.xml" />
         <option value="$PROJECT_DIR$/Desktop/pro1/main.php" />
         <option value="$PROJECT_DIR$/Desktop/pro1/xmlParser.php" />
-        <option value="$PROJECT_DIR$/Desktop/pro1/vstup.xml" />
         <option value="$PROJECT_DIR$/Desktop/pro1/xmlFileGenerator.php" />
-        <option value="$PROJECT_DIR$/Desktop/pro1/sql.txt" />
+        <option value="$PROJECT_DIR$/Desktop/pro1/vstup.xml" />
         <option value="$PROJECT_DIR$/Desktop/pro1/query.php" />
+        <option value="$PROJECT_DIR$/Desktop/pro1/sql.txt" />
       </list>
     </option>
   </component>
@@ -436,7 +437,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2497309" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39918947" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32928064" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32928064" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -467,14 +468,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/Desktop/pro1/query.php</url>
-          <line>225</line>
-          <option name="timeStamp" value="88" />
-        </line-breakpoint>
-      </breakpoints>
-      <option name="time" value="89" />
+      <option name="time" value="91" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -977,34 +971,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Desktop/pro1/vstup.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="651">
-          <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Desktop/pro1/main.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.37732658" vertical-offset="449" max-vertical-offset="1365">
-          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.51945853" vertical-offset="449" max-vertical-offset="1365">
+          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Desktop/pro1/sql.txt">
+    <entry file="file://$PROJECT_DIR$/Desktop/pro1/vstup.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="621">
-          <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="714">
+          <caret line="11" column="15" selection-start-line="11" selection-start-column="15" selection-end-line="11" selection-end-column="15" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Desktop/pro1/query.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39400208" vertical-offset="3021" max-vertical-offset="4431">
-          <caret line="214" column="60" selection-start-line="214" selection-start-column="60" selection-end-line="214" selection-end-column="60" />
+        <state vertical-scroll-proportion="0.39400208" vertical-offset="3168" max-vertical-offset="5313">
+          <caret line="221" column="60" selection-start-line="221" selection-start-column="60" selection-end-line="221" selection-end-column="60" />
           <folding>
             <element signature="n#__construct#0;n#query#0;n#!!top" expanded="false" />
             <element signature="n#__destruct#0;n#query#0;n#!!top" expanded="false" />
@@ -1013,8 +999,15 @@
             <element signature="n#applySelect#0;n#query#0;n#!!top" expanded="false" />
             <element signature="n#digDataBySelect#0;n#query#0;n#!!top" expanded="false" />
             <element signature="n#applyLimit#0;n#query#0;n#!!top" expanded="false" />
-            <element signature="e#6642#6931#1#PHP" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Desktop/pro1/sql.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="621">
+          <caret line="0" column="45" selection-start-line="0" selection-start-column="45" selection-end-line="0" selection-end-column="45" />
+          <folding />
         </state>
       </provider>
     </entry>
