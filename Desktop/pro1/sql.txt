@@ -1,1 +1,2 @@
-SELECT book LIMIT 3 FROM ROOT WHERE author.id CONTAINS "42"
+SELECT book LIMIT 3 FROM catalog WHERE author.id CONTAINS "42"
+

@@ -45,16 +45,16 @@ class query {
         $this->digDataByFrom($this->input, $this->query['FROM']);
     }
 
-    private function digDataByFrom ($input, $seek) {    //  iterates through given array
+    private function digDataByFrom ($input) {    //  iterates through given array
         if (!is_array($input))
             return;
 
-        foreach($input as $tag) {
-            if (isset($tag[$seek])) {
+        foreach($input as $tag)
+            if (isset($tag[$this->query['FROM']])) {
                 $this->output[] = $tag;
                 return;
-            } else $this->digDataByFrom($tag, $seek);
-        }
+            } else $this->digDataByFrom($tag);
+
     }
 
 
@@ -95,44 +95,62 @@ class query {
 
     private function applyWhere () {    // apply SQL WHERE Command
 
-        $this->input = $this->output;
+        foreach ($this->query['WHERE'] as $actual) {
 
-        $this->output = NULL;
+            $negation = $actual['NOT'];             // get negation
 
-        foreach ($this->input as $tag)         // iterate through actual tag
-           if ($this->digDataByWhere($tag))
-               $this->output[] = $tag;
+            unset($actual['NOT']);                  // unset NOT element
 
+            $this->input = $this->output;           // "reload" output
+            $this->output = NULL;
+
+            if ($negation) {
+                foreach ($this->input as $tag)          // iterate through actual tag
+                    if (!$this->digDataByWhere($tag, $actual))
+                        $this->output[] = $tag;
+            } else {
+                foreach ($this->input as $tag)          // iterate through actual tag
+                    if ($this->digDataByWhere($tag, $actual))
+                        $this->output[] = $tag;
+            }
+        }
     }
 
-    private function digDataByWhere ($input) {  //  iterates through given array
-        if (!is_array($input))
-            return false;
+    private function digDataByWhere ($input, $actual) {  //  iterates through given array
 
         $found = false;
 
         foreach ($input as $tag)
-            if ($this->whereCondition($tag))     // apply where condition on actual tag
+            if ($this->whereCondition($tag, $actual))    // apply where condition on actual tag
                 return true;
-            else
-                $found = $this->digDataByWhere ($tag);
-
+            else {
+                if (!is_array($tag))
+                    return false;
+                $found = $this->digDataByWhere($tag, $actual);
+            }
         return $found;
     }
 
-    private function whereCondition ($input) {
+    private function whereCondition ($input, $actual) {
         if (!is_array($input))
             return false;
 
         $result = false;
 
-        foreach ($this->query['WHERE'] as $index)
-            if (isset($input[$index]))
+        $operator = end($actual);
+
+        $condition =  function ($value) use ($operator) {       // evaluates condition
+            return eval('return ' . '"' .
+                $value . '"'. $operator . '"' . $this->query['CONTAINS']
+                . '"' . ';');
+        };
+
+        foreach (array_slice($actual, 0, -1) as $index)
+            if (isset($input[$index])) {
                 foreach ($input[$index] as $value)
-                    if ($value === $this->query['CONTAINS'])
+                    if ($condition($value))
                         $result = true;
-                    elseif ($result != true)
-                        $result = false;
+            }
 
         return $result;
     }
@@ -143,46 +161,82 @@ class query {
 
         $query = explode(" ", trim($query));
 
-        $count = count($query) - 1;       // counts elements of query
+        $count = count($query);                     // counts elements of query
 
-        for ($i = 0, $rule = 0; $i < $count; ++$rule)
+        $i = 0;                                     // index of query field
+
+        $inc = function () use (&$i, $count) {      // increments index of query filed
+            return ($i == $count) ? die('SQL query error') : ++$i;
+        };
+
+        for ($rule = 0; $i < $count; ++$rule)
             switch ($rule) {
-                case 0 :
-                    if ($query[$i] == 'SELECT')
-                        $this->query['SELECT'] = $this->getSelect($query[++$i]);
-                    else
-                        throw new Exception('wrong position of SELECT Command');
+                case 0 && $query[$i] == 'SELECT' :
+
+                    $this->query['SELECT'] = $query[$inc()];
+                    $inc();
+
+                    break;
+
+                case 1 && $query[$i] == 'LIMIT' :
+
+                        $getLimit = function ($element) {       // checks if limit is integer
+                            if (!ctype_digit($element))
+                                throw new Exception('SQL LIMIT command must be NUMERIC and INTEGER');
+                            return intval($element);
+                        };
+
+                        $this->query['LIMIT'] = $getLimit ($query[$inc()]);
+                        $inc();
+
+                    break;
+
+                case 2 && $query[$i] == 'FROM' :
+
+                       $this->query['FROM'] = $query[$inc()];
+
                     ++$i;
                     break;
 
-                case 1 :
-                    if ($query[$i] == 'LIMIT') {
-                        $this->query['LIMIT'] = $this->getLimit($query[++$i]);
-                        ++$i;
-                    }
+
+                case 3 && $query[$i] == 'WHERE' :
+
+                        $inc();
+
+                        $negation = false;
+
+                        while ($query[$i] == 'NOT') {
+                            $negation = !$negation;
+                            $inc();
+                        }
+
+                        $condition = '==';
+
+                        $getWhere = function ($element) {   // returns array of sought elements / attributes
+                            return array_reverse(explode ('.', $element));
+                        };
+
+                        $this->query['WHERE'][] = $getWhere ($query[$i]);
+
+                        $actual = count($this->query['WHERE']) - 1;
+
+                        array_push($this->query['WHERE'][$actual], $condition);
+                        $this->query['WHERE'][$actual]['NOT'] = $negation;
+
+                        $inc();
+
                     break;
 
-                case 2 :
-                    if ($query[$i] == 'FROM')
-                       $this->query['FROM'] = $this->getFrom($query[++$i]);
-                    else
-                        throw new Exception('wrong position of FROM Command');
-                    ++$i;
-                    break;
+                case 4 && $query[$i] == 'CONTAINS':
 
+                        $getContains = function ($element) {
+                            if (($element[0] != "\"") && ($element[strlen($element)-1] != "\""))
+                                throw new Exception('CONTAINS Element must be string');
+                            return trim($element, "\"");
+                        };
 
-                case 3 :
-                    if ($query[$i] == 'WHERE') {
-                         $this->query['WHERE'] = $this->getWhere($query[++$i]);
-                        ++$i;
-                    }
-                    break;
-
-                case 4 :
-                    if ($query[$i] == 'CONTAINS') {
-                         $this->query['CONTAINS'] = $this->getContains($query[++$i]);
-                        ++$i;
-                    }
+                         $this->query['CONTAINS'] = $getContains ($query[$inc()]);
+                        $inc();
 
                     break;
 
@@ -192,33 +246,6 @@ class query {
 
                     break;
             }
-    }
-
-
-    private function getSelect ($element) {     // set select element
-        return $element;
-    }
-
-    private function getLimit ($element) {      // sets limit element
-        if (!ctype_digit($element))
-            throw new Exception('SQL LIMIT command must be NUMERIC and INTEGER');
-
-        return intval($element);
-    }
-
-    private function getFrom ($element) {       // sets from element
-        return $element;
-    }
-
-    private function getWhere ($element) {      // set select element
-        return array_reverse(explode ('.', $element));
-    }
-
-    private function getContains ($element) {   // set contains element
-        if (($element[0] != "\"") && ($element[strlen($element)-1] != "\""))
-            throw new Exception('CONTAINS Element must be string');
-
-        return trim($element, "\"");
     }
 
     // public setters functions

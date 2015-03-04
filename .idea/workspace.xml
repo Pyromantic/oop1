@@ -3,6 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d7298300-b998-47ad-a876-ed0b31ad5dad" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Desktop/pro1/query.php" afterPath="$PROJECT_DIR$/Desktop/pro1/query.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Desktop/pro1/sql.txt" afterPath="$PROJECT_DIR$/Desktop/pro1/sql.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="oop1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,14 +27,33 @@
     <window id="1">
       <content type="file-editors">
         <state>
-          <splitter split-orientation="horizontal" split-proportion="0.42363733">
+          <splitter split-orientation="horizontal" split-proportion="0.39827308">
             <split-first>
               <leaf>
-                <file leaf-file-name="xmlParser.php" pinned="false" current-in-tab="true">
+                <file leaf-file-name="query.php" pinned="false" current-in-tab="true">
+                  <entry file="file://$PROJECT_DIR$/Desktop/pro1/query.php">
+                    <provider selected="true" editor-type-id="text-editor">
+                      <state vertical-scroll-proportion="0.39400208" vertical-offset="3021" max-vertical-offset="4431">
+                        <caret line="214" column="60" selection-start-line="214" selection-start-column="60" selection-end-line="214" selection-end-column="60" />
+                        <folding>
+                          <element signature="n#__construct#0;n#query#0;n#!!top" expanded="false" />
+                          <element signature="n#__destruct#0;n#query#0;n#!!top" expanded="false" />
+                          <element signature="n#applyFrom#0;n#query#0;n#!!top" expanded="false" />
+                          <element signature="n#digDataByFrom#0;n#query#0;n#!!top" expanded="false" />
+                          <element signature="n#applySelect#0;n#query#0;n#!!top" expanded="false" />
+                          <element signature="n#digDataBySelect#0;n#query#0;n#!!top" expanded="false" />
+                          <element signature="n#applyLimit#0;n#query#0;n#!!top" expanded="false" />
+                          <element signature="e#6642#6931#1#PHP" expanded="false" />
+                        </folding>
+                      </state>
+                    </provider>
+                  </entry>
+                </file>
+                <file leaf-file-name="xmlParser.php" pinned="false" current-in-tab="false">
                   <entry file="file://$PROJECT_DIR$/Desktop/pro1/xmlParser.php">
                     <provider selected="true" editor-type-id="text-editor">
-                      <state vertical-scroll-proportion="0.29285714" vertical-offset="217" max-vertical-offset="1197">
-                        <caret line="33" column="68" selection-start-line="33" selection-start-column="68" selection-end-line="33" selection-end-column="68" />
+                      <state vertical-scroll-proportion="-18.2" vertical-offset="0" max-vertical-offset="1197">
+                        <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
                         <folding>
                           <element signature="n#__construct#0;n#xmlParser#0;n#!!top" expanded="false" />
                           <element signature="n#__destruct#0;n#xmlParser#0;n#!!top" expanded="false" />
@@ -46,27 +67,6 @@
                           <element signature="n#setNextInput#0;n#xmlParser#0;n#!!top" expanded="false" />
                           <element signature="n#add2InputFront#0;n#xmlParser#0;n#!!top" expanded="false" />
                           <element signature="n#getParsedXml#0;n#xmlParser#0;n#!!top" expanded="false" />
-                        </folding>
-                      </state>
-                    </provider>
-                  </entry>
-                </file>
-                <file leaf-file-name="query.php" pinned="false" current-in-tab="false">
-                  <entry file="file://$PROJECT_DIR$/Desktop/pro1/query.php">
-                    <provider selected="true" editor-type-id="text-editor">
-                      <state vertical-scroll-proportion="0.0" vertical-offset="1794" max-vertical-offset="4368">
-                        <caret line="136" column="23" selection-start-line="136" selection-start-column="23" selection-end-line="136" selection-end-column="23" />
-                        <folding>
-                          <element signature="n#__construct#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#__destruct#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#applyFrom#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#applySelect#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#applyLimit#0;n#query#0;n#!!top" expanded="false" />
-                          <marker date="1425392869918" expanded="true" signature="2740:2930" placeholder="..." />
-                          <marker date="1425392869918" expanded="true" signature="2828:2870" placeholder="..." />
-                          <marker date="1425392869918" expanded="true" signature="2874:2894" placeholder="..." />
-                          <marker date="1425392869918" expanded="true" signature="3141:3419" placeholder="..." />
-                          <marker date="1425392869918" expanded="true" signature="3231:3419" placeholder="..." />
                         </folding>
                       </state>
                     </provider>
@@ -79,8 +79,8 @@
                 <file leaf-file-name="query.php" pinned="false" current-in-tab="true">
                   <entry file="file://$PROJECT_DIR$/Desktop/pro1/query.php">
                     <provider selected="true" editor-type-id="text-editor">
-                      <state vertical-scroll-proportion="0.48401323" vertical-offset="128" max-vertical-offset="1617">
-                        <caret line="36" column="60" selection-start-line="36" selection-start-column="60" selection-end-line="36" selection-end-column="60" />
+                      <state vertical-scroll-proportion="0.67585444" vertical-offset="1361" max-vertical-offset="4515">
+                        <caret line="146" column="0" selection-start-line="146" selection-start-column="0" selection-end-line="146" selection-end-column="0" />
                         <folding>
                           <element signature="n#__construct#0;n#query#0;n#!!top" expanded="false" />
                           <element signature="n#__destruct#0;n#query#0;n#!!top" expanded="false" />
@@ -89,45 +89,6 @@
                           <element signature="n#applySelect#0;n#query#0;n#!!top" expanded="false" />
                           <element signature="n#digDataBySelect#0;n#query#0;n#!!top" expanded="false" />
                           <element signature="n#applyLimit#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#applyWhere#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#digDataByWhere#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#whereCondition#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#parseQuery#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#getSelect#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#getLimit#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#getFrom#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#getWhere#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#getContains#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#setParsedXml#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#getOutputXML#0;n#query#0;n#!!top" expanded="false" />
-                          <marker date="1425392869918" expanded="true" signature="2740:2930" placeholder="..." />
-                          <marker date="1425392869918" expanded="true" signature="2828:2870" placeholder="..." />
-                          <marker date="1425392869918" expanded="true" signature="2874:2894" placeholder="..." />
-                          <marker date="1425392869918" expanded="true" signature="3141:3419" placeholder="..." />
-                          <marker date="1425392869918" expanded="true" signature="3231:3419" placeholder="..." />
-                        </folding>
-                      </state>
-                    </provider>
-                  </entry>
-                </file>
-                <file leaf-file-name="xmlParser.php" pinned="false" current-in-tab="false">
-                  <entry file="file://$PROJECT_DIR$/Desktop/pro1/xmlParser.php">
-                    <provider selected="true" editor-type-id="text-editor">
-                      <state vertical-scroll-proportion="0.0" vertical-offset="399" max-vertical-offset="1197">
-                        <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-                        <folding>
-                          <element signature="n#__construct#0;n#xmlParser#0;n#!!top" expanded="false" />
-                          <element signature="n#__destruct#0;n#xmlParser#0;n#!!top" expanded="false" />
-                          <element signature="n#parseXmlHeader#0;n#xmlParser#0;n#!!top" expanded="false" />
-                          <element signature="n#getNextTag#0;n#xmlParser#0;n#!!top" expanded="false" />
-                          <element signature="n#determinateTag#0;n#xmlParser#0;n#!!top" expanded="false" />
-                          <element signature="n#getTagAttribute#0;n#xmlParser#0;n#!!top" expanded="false" />
-                          <element signature="n#getAttributeValue#0;n#xmlParser#0;n#!!top" expanded="false" />
-                          <element signature="n#getTagValue#0;n#xmlParser#0;n#!!top" expanded="false" />
-                          <element signature="n#getEndTag#0;n#xmlParser#0;n#!!top" expanded="false" />
-                          <element signature="n#setNextInput#0;n#xmlParser#0;n#!!top" expanded="false" />
-                          <element signature="n#add2InputFront#0;n#xmlParser#0;n#!!top" expanded="false" />
-                          <element signature="n#getParsedXml#0;n#xmlParser#0;n#!!top" expanded="false" />
                         </folding>
                       </state>
                     </provider>
@@ -170,21 +131,21 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="main.php" pinned="false" current-in-tab="false">
+          <file leaf-file-name="main.php" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Desktop/pro1/main.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="672" max-vertical-offset="1365">
-                  <caret line="32" column="55" selection-start-line="32" selection-start-column="55" selection-end-line="32" selection-end-column="55" />
+                <state vertical-scroll-proportion="0.37732658" vertical-offset="449" max-vertical-offset="1365">
+                  <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="xmlFileGenerator.php" pinned="false" current-in-tab="true">
+          <file leaf-file-name="xmlFileGenerator.php" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Desktop/pro1/xmlFileGenerator.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.39086294" vertical-offset="189" max-vertical-offset="1344">
-                  <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="441" max-vertical-offset="1344">
+                  <caret line="35" column="44" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
                   <folding>
                     <element signature="n#__construct#0;n#xmlFileGenerator#0;n#!!top" expanded="false" />
                     <element signature="n#__destruct#0;n#xmlFileGenerator#0;n#!!top" expanded="false" />
@@ -242,21 +203,21 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="sql.txt" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/Desktop/pro1/sql.txt">
+          <file leaf-file-name="vstup.xml" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/Desktop/pro1/vstup.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="621">
-                  <caret line="0" column="58" selection-start-line="0" selection-start-column="58" selection-end-line="0" selection-end-column="58" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="651">
+                  <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="vstup.xml" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Desktop/pro1/vstup.xml">
+          <file leaf-file-name="sql.txt" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/Desktop/pro1/sql.txt">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="651">
-                  <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="621">
+                  <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
                   <folding />
                 </state>
               </provider>
@@ -277,8 +238,8 @@
         <option value="$PROJECT_DIR$/Desktop/pro1/main.php" />
         <option value="$PROJECT_DIR$/Desktop/pro1/xmlParser.php" />
         <option value="$PROJECT_DIR$/Desktop/pro1/vstup.xml" />
-        <option value="$PROJECT_DIR$/Desktop/pro1/sql.txt" />
         <option value="$PROJECT_DIR$/Desktop/pro1/xmlFileGenerator.php" />
+        <option value="$PROJECT_DIR$/Desktop/pro1/sql.txt" />
         <option value="$PROJECT_DIR$/Desktop/pro1/query.php" />
       </list>
     </option>
@@ -475,7 +436,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2497309" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39918947" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32928064" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32928064" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -509,11 +470,11 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/Desktop/pro1/query.php</url>
-          <line>113</line>
-          <option name="timeStamp" value="72" />
+          <line>225</line>
+          <option name="timeStamp" value="88" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="82" />
+      <option name="time" value="89" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -959,14 +920,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Desktop/pro1/main.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="672" max-vertical-offset="1281">
-          <caret line="32" column="55" selection-start-line="32" selection-start-column="55" selection-end-line="32" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Desktop/pro1/arguments.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="231" max-vertical-offset="903">
@@ -987,18 +940,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Desktop/pro1/vstup.xml">
+    <entry file="file://$PROJECT_DIR$/Desktop/pro1/xmlFileGenerator.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="651">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.0" vertical-offset="441" max-vertical-offset="1344">
+          <caret line="35" column="44" selection-start-line="35" selection-start-column="44" selection-end-line="35" selection-end-column="44" />
+          <folding>
+            <element signature="n#__construct#0;n#xmlFileGenerator#0;n#!!top" expanded="false" />
+            <element signature="n#__destruct#0;n#xmlFileGenerator#0;n#!!top" expanded="false" />
+            <element signature="n#nestIn#0;n#xmlFileGenerator#0;n#!!top" expanded="false" />
+            <element signature="n#setXML#0;n#xmlFileGenerator#0;n#!!top" expanded="false" />
+            <element signature="n#setFilename#0;n#xmlFileGenerator#0;n#!!top" expanded="false" />
+            <element signature="n#setNFlag#0;n#xmlFileGenerator#0;n#!!top" expanded="false" />
+            <element signature="n#setRoot#0;n#xmlFileGenerator#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Desktop/pro1/xmlParser.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="399" max-vertical-offset="1197">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+        <state vertical-scroll-proportion="-18.2" vertical-offset="0" max-vertical-offset="1197">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
           <folding>
             <element signature="n#__construct#0;n#xmlParser#0;n#!!top" expanded="false" />
             <element signature="n#__destruct#0;n#xmlParser#0;n#!!top" expanded="false" />
@@ -1016,34 +977,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Desktop/pro1/sql.txt">
+    <entry file="file://$PROJECT_DIR$/Desktop/pro1/vstup.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="621">
-          <caret line="0" column="58" selection-start-line="0" selection-start-column="58" selection-end-line="0" selection-end-column="58" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="651">
+          <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Desktop/pro1/xmlFileGenerator.php">
+    <entry file="file://$PROJECT_DIR$/Desktop/pro1/main.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39086294" vertical-offset="189" max-vertical-offset="1344">
-          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding>
-            <element signature="n#__construct#0;n#xmlFileGenerator#0;n#!!top" expanded="false" />
-            <element signature="n#__destruct#0;n#xmlFileGenerator#0;n#!!top" expanded="false" />
-            <element signature="n#nestIn#0;n#xmlFileGenerator#0;n#!!top" expanded="false" />
-            <element signature="n#setXML#0;n#xmlFileGenerator#0;n#!!top" expanded="false" />
-            <element signature="n#setFilename#0;n#xmlFileGenerator#0;n#!!top" expanded="false" />
-            <element signature="n#setNFlag#0;n#xmlFileGenerator#0;n#!!top" expanded="false" />
-            <element signature="n#setRoot#0;n#xmlFileGenerator#0;n#!!top" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.37732658" vertical-offset="449" max-vertical-offset="1365">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Desktop/pro1/sql.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="621">
+          <caret line="0" column="38" selection-start-line="0" selection-start-column="38" selection-end-line="0" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Desktop/pro1/query.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48401323" vertical-offset="128" max-vertical-offset="1617">
-          <caret line="36" column="60" selection-start-line="36" selection-start-column="60" selection-end-line="36" selection-end-column="60" />
+        <state vertical-scroll-proportion="0.39400208" vertical-offset="3021" max-vertical-offset="4431">
+          <caret line="214" column="60" selection-start-line="214" selection-start-column="60" selection-end-line="214" selection-end-column="60" />
           <folding>
             <element signature="n#__construct#0;n#query#0;n#!!top" expanded="false" />
             <element signature="n#__destruct#0;n#query#0;n#!!top" expanded="false" />
@@ -1052,22 +1013,7 @@
             <element signature="n#applySelect#0;n#query#0;n#!!top" expanded="false" />
             <element signature="n#digDataBySelect#0;n#query#0;n#!!top" expanded="false" />
             <element signature="n#applyLimit#0;n#query#0;n#!!top" expanded="false" />
-            <element signature="n#applyWhere#0;n#query#0;n#!!top" expanded="false" />
-            <element signature="n#digDataByWhere#0;n#query#0;n#!!top" expanded="false" />
-            <element signature="n#whereCondition#0;n#query#0;n#!!top" expanded="false" />
-            <element signature="n#parseQuery#0;n#query#0;n#!!top" expanded="false" />
-            <element signature="n#getSelect#0;n#query#0;n#!!top" expanded="false" />
-            <element signature="n#getLimit#0;n#query#0;n#!!top" expanded="false" />
-            <element signature="n#getFrom#0;n#query#0;n#!!top" expanded="false" />
-            <element signature="n#getWhere#0;n#query#0;n#!!top" expanded="false" />
-            <element signature="n#getContains#0;n#query#0;n#!!top" expanded="false" />
-            <element signature="n#setParsedXml#0;n#query#0;n#!!top" expanded="false" />
-            <element signature="n#getOutputXML#0;n#query#0;n#!!top" expanded="false" />
-            <marker date="1425392869918" expanded="true" signature="2740:2930" placeholder="..." />
-            <marker date="1425392869918" expanded="true" signature="2828:2870" placeholder="..." />
-            <marker date="1425392869918" expanded="true" signature="2874:2894" placeholder="..." />
-            <marker date="1425392869918" expanded="true" signature="3141:3419" placeholder="..." />
-            <marker date="1425392869918" expanded="true" signature="3231:3419" placeholder="..." />
+            <element signature="e#6642#6931#1#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
