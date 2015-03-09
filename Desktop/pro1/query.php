@@ -8,6 +8,8 @@
 
 class query {
 
+    const QUE = 3;           // query unique elements
+
     private $query;          // parsed SQL query
     private $input;          // parsed XML
     private $output;         // applied SQL on parsed XML
@@ -24,6 +26,8 @@ class query {
 
     public function applyQuery () {
 
+        var_dump($this->query['WHERE']);exit;
+
         $this->applyFrom();         // apply FROM Command
 
         $this->applySelect();       // apply SELECT Command
@@ -33,6 +37,10 @@ class query {
 
         if (isset($this->query['WHERE']))
             $this->applyWhere();    // apply WHERE Command
+
+        if (isset($this->query['ORDER']))
+            $this->applyOrder();    // apply ORDER Command
+
 
     }
 
@@ -177,6 +185,14 @@ class query {
         return $result;
     }
 
+
+    private function applyOrder () {
+
+        $this->input =  $this->output;
+        $this->output = NULL;
+
+    }
+
     public function parseQuery ($query) {   // parse Query and sets individual elements
 
         $query = explode(" ", trim($query));
@@ -185,11 +201,13 @@ class query {
 
         $i = 0;                                     // index of query field
 
+        $iterationCount = 0;                        // count of iterations over brackets
+
         $inc = function () use (&$i, $count) {      // increments index of query filed
             return ($i == $count) ? die('SQL query error') : ++$i;
         };
 
-        $affection = function ($element) use ($inc) {
+        $affection = function ($element) use ($inc) {   // checks affection
 
             $inc();
 
@@ -199,7 +217,12 @@ class query {
             throw new Exception('Neplatna podminka v SQL query');
         };
 
-        for ($rule = 0; $i < $count; ++$rule)
+        $iteration = function () use (&$iterationCount) {   // increments iteration count
+            if (++$iterationCount > 2)
+                throw new Exception('SQL query error, mnoho elementu v zavorkach');
+        };
+
+        for ($rule = 0; $rule <= self::QUE; ++$rule)    // iterates over elements of query
             switch ($rule) {
                 case 0 && $query[$i] == 'SELECT' :
 
@@ -225,54 +248,18 @@ class query {
 
                     $this->query['FROM'] = $query[$inc()];
 
-                    ++$i;
+                    $inc();
                     break;
 
 
                 case 3 && $query[$i] == 'WHERE':
-                case 4 && $query[$i] == 'AND' :
-                case 4 && $query[$i] == 'OR' :
-
-
-                    $defaultAffection = ($query[$i] != 'WHERE') ?  $query[$i] : 'AND' ;
 
                     $inc();
 
-                    $negation = false;
-
-                    while ($query[$i] == 'NOT') {                           // handles negation
-                        $negation = !$negation;
-                        $inc();
-                    }
-
-                    $actual = (isset($this->query['WHERE'])) ? count($this->query['WHERE']) : 0;  // set list
-
-                    $bracket = false;
-
-                    if ($query[$i][0] === '(') {
-                        $query[$i] = substr($query[$i], 1);                  // cuts (
-                        $bracket = true;
-                    }
-
-                    do {
-
-                        $tmp = (isset($this->query['WHERE'][$actual])) ? $affection($query[$i]) : $defaultAffection;
-
-                        $condition = $this->getCondition($inc, $query, $i, $bracket);   // sets condition
-
-                        $condition['NOT'] = $negation;                                  // sets negation
-
-                        $condition['AFFECTION'] = $tmp;
-
-                        // sets affection, default AND
-
-                        $this->query['WHERE'][$actual][] = $condition;
-
-                        $inc();
-                    } while ($bracket);
-
+                    $this->affectionHandle ($inc, $affection, $iteration, $query, $i, $iterationCount, 'AND');
 
                     break;
+
 
                 default :
 
@@ -281,8 +268,84 @@ class query {
                     break;
             }
 
+        for (;$i < $count;)                             // iterates over elements of query
+            switch ($query[$i]) {
+
+                case 'AND' :
+
+                    $inc();
+
+                    $this->affectionhandle ($inc, $affection, $iteration, $query, $i, $iterationCount, 'AND') ;
+
+                    break;
+
+                case 'OR' :
+
+                    $inc();
+
+                    $this->affectionhandle ($inc, $affection, $iteration, $query, $i, $iterationCount, 'OR') ;
+
+                    break;
+
+                case 'ORDER' :
+                        if ($query[$inc()] != 'BY')
+                            throw new Exception('SQL query error, ocekavany BY, misto toho ' . $query[$i]);
+
+                        $this->query['ORDER'][] = $query[$inc()];       // order by ,numeric int expected
+
+                        $this->query['ORDER'][] = $query[$inc()];       // desc / asc
+
+                        $inc();
+
+                        break;
+                    break;
+
+                    default :
+                        throw new Exception('Unknown query command' . $this->query[$i]);
+                        break;
+
+            }
+
+
+        if ($i != $count)                               // asks for end
+            throw new Exception('SQL query error, ocekavany konec query po ' . $query[$i]);
     }
 
+    private function affectionHandle ($inc, $affection, $iteration, $query, &$i, &$iterationCount, $defaultAffection) {
+        $negation = false;
+
+        while ($query[$i] == 'NOT') {            // handles negation
+            $negation = !$negation;
+            $inc();
+        }
+
+        $actual = isset($this->query['WHERE']) ? count($this->query['WHERE']) : 0;  // set list
+
+        $bracket = false;
+
+        if ($query[$i][0] === '(') {             // handles brackets
+            $query[$i] = substr($query[$i], 1);  // cuts (
+            $bracket = true;
+        }
+
+        $iterationCount = 0;                    // sets iteration count
+
+        do {
+            $iteration();
+
+            $tmp = ($iterationCount - 1) ? $affection($query[$i]) : $defaultAffection;
+
+            $condition = $this->getCondition($inc, $query, $i, $bracket);   // gets condition
+
+            $condition['NOT'] = $negation;                                  // sets negation
+
+            $condition['AFFECTION'] = $tmp;                                 // sets affection, default AND
+
+            $this->query['WHERE'][$actual][] = $condition;                  // sets condition
+
+            $inc();
+        } while ($bracket);
+    }
 
     private function getCondition ($inc, $query, &$i, &$bracket) {
 

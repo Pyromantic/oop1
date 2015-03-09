@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d7298300-b998-47ad-a876-ed0b31ad5dad" name="Default" comment="">
-      <change type="MOVED" beforePath="C:\Users\Michal\Documents\oop1\Desktop\pro1\main.php" afterPath="$PROJECT_DIR$/Desktop/pro1/xqr.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Desktop/pro1/arguments.php" afterPath="$PROJECT_DIR$/Desktop/pro1/arguments.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Desktop/pro1/query.php" afterPath="$PROJECT_DIR$/Desktop/pro1/query.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Desktop/pro1/sql.txt" afterPath="$PROJECT_DIR$/Desktop/pro1/sql.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Desktop/pro1/xmlFileGenerator.php" afterPath="$PROJECT_DIR$/Desktop/pro1/xmlFileGenerator.php" />
     </list>
     <ignored path="oop1.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,16 +32,11 @@
                 <file leaf-file-name="query.php" pinned="false" current-in-tab="true">
                   <entry file="file://$PROJECT_DIR$/Desktop/pro1/query.php">
                     <provider selected="true" editor-type-id="text-editor">
-                      <state vertical-scroll-proportion="2.5191314" vertical-offset="2058" max-vertical-offset="6363">
-                        <caret line="265" column="0" selection-start-line="265" selection-start-column="0" selection-end-line="265" selection-end-column="0" />
+                      <state vertical-scroll-proportion="2.5191314" vertical-offset="2793" max-vertical-offset="8568">
+                        <caret line="258" column="20" selection-start-line="258" selection-start-column="20" selection-end-line="258" selection-end-column="20" />
                         <folding>
                           <element signature="n#__construct#0;n#query#0;n#!!top" expanded="false" />
                           <element signature="n#__destruct#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#applyFrom#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#digDataByFrom#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#applySelect#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#digDataBySelect#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#applyLimit#0;n#query#0;n#!!top" expanded="false" />
                         </folding>
                       </state>
                     </provider>
@@ -92,8 +83,8 @@
                 <file leaf-file-name="query.php" pinned="false" current-in-tab="true">
                   <entry file="file://$PROJECT_DIR$/Desktop/pro1/query.php">
                     <provider selected="true" editor-type-id="text-editor">
-                      <state vertical-scroll-proportion="0.475" vertical-offset="3679" max-vertical-offset="6363">
-                        <caret line="247" column="55" selection-start-line="247" selection-start-column="55" selection-end-line="247" selection-end-column="55" />
+                      <state vertical-scroll-proportion="1.0496141" vertical-offset="770" max-vertical-offset="2373">
+                        <caret line="268" column="13" selection-start-line="268" selection-start-column="13" selection-end-line="268" selection-end-column="13" />
                         <folding>
                           <element signature="n#__construct#0;n#query#0;n#!!top" expanded="false" />
                           <element signature="n#__destruct#0;n#query#0;n#!!top" expanded="false" />
@@ -102,6 +93,16 @@
                           <element signature="n#applySelect#0;n#query#0;n#!!top" expanded="false" />
                           <element signature="n#digDataBySelect#0;n#query#0;n#!!top" expanded="false" />
                           <element signature="n#applyLimit#0;n#query#0;n#!!top" expanded="false" />
+                          <element signature="n#applyWhere#0;n#query#0;n#!!top" expanded="false" />
+                          <element signature="n#digDataByWhere#0;n#query#0;n#!!top" expanded="false" />
+                          <element signature="n#whereCondition#0;n#query#0;n#!!top" expanded="false" />
+                          <element signature="e#5783#5931#1#PHP" expanded="false" />
+                          <element signature="e#5955#6196#1#PHP" expanded="false" />
+                          <element signature="e#6220#6421#1#PHP" expanded="false" />
+                          <element signature="e#6527#7747#0#PHP" expanded="false" />
+                          <element signature="e#7852#8915#0#PHP" expanded="false" />
+                          <element signature="n#affectionHandle#0;n#query#0;n#!!top" expanded="false" />
+                          <element signature="n#getCondition#0;n#query#0;n#!!top" expanded="false" />
                         </folding>
                       </state>
                     </provider>
@@ -122,11 +123,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.61262554">
       <split-first>
         <leaf>
-          <file leaf-file-name="xqr.php" pinned="false" current-in-tab="false">
+          <file leaf-file-name="xqr.php" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Desktop/pro1/xqr.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="-0.0" vertical-offset="315" max-vertical-offset="1386">
-                  <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
+                <state vertical-scroll-proportion="0.32418525" vertical-offset="189" max-vertical-offset="1386">
+                  <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -162,10 +163,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="arguments.php" pinned="false" current-in-tab="true">
+          <file leaf-file-name="arguments.php" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Desktop/pro1/arguments.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.21046771" vertical-offset="0" max-vertical-offset="3108">
+                <state vertical-scroll-proportion="-6.3" vertical-offset="0" max-vertical-offset="3108">
                   <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
                   <folding>
                     <element signature="n#__destruct#0;n#arguments#0;n#!!top" expanded="false" />
@@ -220,8 +221,8 @@
           <file leaf-file-name="sql.txt" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Desktop/pro1/sql.txt">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="928">
-                  <caret line="0" column="11" selection-start-line="0" selection-start-column="11" selection-end-line="0" selection-end-column="11" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="613">
+                  <caret line="0" column="70" selection-start-line="0" selection-start-column="70" selection-end-line="0" selection-end-column="70" />
                   <folding />
                 </state>
               </provider>
@@ -243,8 +244,8 @@
         <option value="$PROJECT_DIR$/Desktop/pro1/main.php" />
         <option value="$PROJECT_DIR$/Desktop/pro1/xmlFileGenerator.php" />
         <option value="$PROJECT_DIR$/Desktop/pro1/xqr.php" />
-        <option value="$PROJECT_DIR$/Desktop/pro1/sql.txt" />
         <option value="$PROJECT_DIR$/Desktop/pro1/arguments.php" />
+        <option value="$PROJECT_DIR$/Desktop/pro1/sql.txt" />
         <option value="$PROJECT_DIR$/Desktop/pro1/query.php" />
       </list>
     </option>
@@ -254,10 +255,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" interpreter_name="PHP" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="63" />
-    <option name="y" value="7" />
-    <option name="width" value="1856" />
-    <option name="height" value="1078" />
+    <option name="x" value="54" />
+    <option name="y" value="-8" />
+    <option name="width" value="1874" />
+    <option name="height" value="1096" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -431,7 +432,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="63" y="7" width="1856" height="1078" extended-state="0" />
+    <frame x="54" y="-8" width="1874" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -440,7 +441,9 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25108695" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24865447" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39817628" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.337386" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -448,9 +451,7 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3983488" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3374613" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
@@ -473,7 +474,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="103" />
+      <option name="time" value="110" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -490,6 +491,16 @@
             <element signature="n#applySelect#0;n#query#0;n#!!top" expanded="false" />
             <element signature="n#digDataBySelect#0;n#query#0;n#!!top" expanded="false" />
             <element signature="n#applyLimit#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#applyWhere#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#digDataByWhere#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#whereCondition#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="e#5783#5931#1#PHP" expanded="false" />
+            <element signature="e#5955#6196#1#PHP" expanded="false" />
+            <element signature="e#6220#6421#1#PHP" expanded="false" />
+            <element signature="e#6527#7747#0#PHP" expanded="false" />
+            <element signature="e#7852#8915#0#PHP" expanded="false" />
+            <element signature="n#affectionHandle#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#getCondition#0;n#query#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -564,6 +575,16 @@
             <element signature="n#applySelect#0;n#query#0;n#!!top" expanded="false" />
             <element signature="n#digDataBySelect#0;n#query#0;n#!!top" expanded="false" />
             <element signature="n#applyLimit#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#applyWhere#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#digDataByWhere#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#whereCondition#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="e#5783#5931#1#PHP" expanded="false" />
+            <element signature="e#5955#6196#1#PHP" expanded="false" />
+            <element signature="e#6220#6421#1#PHP" expanded="false" />
+            <element signature="e#6527#7747#0#PHP" expanded="false" />
+            <element signature="e#7852#8915#0#PHP" expanded="false" />
+            <element signature="n#affectionHandle#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#getCondition#0;n#query#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -912,25 +933,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Desktop/pro1/xqr.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1386">
-          <caret line="15" column="29" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Desktop/pro1/sql.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="928">
-          <caret line="0" column="11" selection-start-line="0" selection-start-column="11" selection-end-line="0" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Desktop/pro1/arguments.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21046771" vertical-offset="0" max-vertical-offset="3108">
+        <state vertical-scroll-proportion="-6.3" vertical-offset="0" max-vertical-offset="3108">
           <caret line="14" column="43" selection-start-line="14" selection-start-column="43" selection-end-line="14" selection-end-column="43" />
           <folding>
             <element signature="n#__destruct#0;n#arguments#0;n#!!top" expanded="false" />
@@ -947,10 +952,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Desktop/pro1/xqr.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32418525" vertical-offset="189" max-vertical-offset="1386">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Desktop/pro1/sql.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="613">
+          <caret line="0" column="70" selection-start-line="0" selection-start-column="70" selection-end-line="0" selection-end-column="70" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Desktop/pro1/query.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.475" vertical-offset="3679" max-vertical-offset="6363">
-          <caret line="247" column="55" selection-start-line="247" selection-start-column="55" selection-end-line="247" selection-end-column="55" />
+        <state vertical-scroll-proportion="1.0496141" vertical-offset="770" max-vertical-offset="2373">
+          <caret line="268" column="13" selection-start-line="268" selection-start-column="13" selection-end-line="268" selection-end-column="13" />
           <folding>
             <element signature="n#__construct#0;n#query#0;n#!!top" expanded="false" />
             <element signature="n#__destruct#0;n#query#0;n#!!top" expanded="false" />
@@ -959,6 +980,16 @@
             <element signature="n#applySelect#0;n#query#0;n#!!top" expanded="false" />
             <element signature="n#digDataBySelect#0;n#query#0;n#!!top" expanded="false" />
             <element signature="n#applyLimit#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#applyWhere#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#digDataByWhere#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#whereCondition#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="e#5783#5931#1#PHP" expanded="false" />
+            <element signature="e#5955#6196#1#PHP" expanded="false" />
+            <element signature="e#6220#6421#1#PHP" expanded="false" />
+            <element signature="e#6527#7747#0#PHP" expanded="false" />
+            <element signature="e#7852#8915#0#PHP" expanded="false" />
+            <element signature="n#affectionHandle#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#getCondition#0;n#query#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
