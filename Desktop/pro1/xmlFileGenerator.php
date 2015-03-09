@@ -27,7 +27,7 @@ class xmlFileGenerator {
     public function generateXML () {
 
         if (isset($this->nFlag))
-            $this->output = "<?xml version=\"1.0\"?>\n";
+            $this->output = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 
         if (isset($this->root))
             $this->output .= '<' . $this->root . ">\n";
@@ -37,11 +37,12 @@ class xmlFileGenerator {
                 $this->nestIn($input);          // nests into
 
         if (isset($this->root))
-            $this->output = '</' . $this->root . ">";
+            $this->output .= '</' . $this->root . ">";
 
-        var_dump( $this->output);
-
-      //  $this->createFile();
+        if (isset($this->fileName))
+            $this->write2File();
+        else
+            echo $this->output;
 
     }
 
@@ -72,14 +73,13 @@ class xmlFileGenerator {
             }
     }
 
-    private function createFile () {    // generates an output file
+    private function write2File () {    // generates an output file
 
-        $file = fopen($this->fileName . '.xml', "w") or die ('unable to create file');
+        $file = fopen($this->fileName, "w") or die ('nelze vztvořit soubor');
 
         fwrite($file, $this->output);
 
         fclose($file);
-
     }
 
     // setters functions

@@ -20,38 +20,32 @@ class arguments             // process and store given arguments
         }
         $this->nFlag = false;
         $this->root = NULL;
+        $this->input = NULL;
+        $this->output = NULL;
     }
 
     function __destruct () {        // class destruct
 
     }
 
-    public function argsProcess ($argmnts, $argCount) {                     // arguments processing
+    public function argsProcess ($inputArgs, $argCount) {   // arguments processing
 
         for ($i = 1; $i < $argCount; $i++) {
 
-            if (substr($argmnts[$i], 0, 2) == '--') {                       // prefix check
+            if (substr($inputArgs[$i], 0, 2) == '--') {         // prefix check
 
-                $arg = substr($argmnts[$i], 2);
+                $arg = substr($inputArgs[$i], 2);
 
-                switch (substr($arg, 0, strpos($arg, '='))) {               // detect parameter
-                    case 'help' :                                           // help
+                switch (substr($arg, 0, strpos($arg, '='))) {   // detect parameter
 
-                        if ($argCount > 2)
-                            throw new Exception('parameter help nelze kombinovat s jinými parametry');
-
-                        echo 'this is help yayaya im lorde ' . "\n";
-                        exit;
-                        break;
-
-                    case 'input' :
+                    case 'input' :  // input
 
                         if (isset($this->input))
                             throw new Exception('parametr ' . substr($arg, 0, strpos($arg, '=')) . ' nelze zadat vícenásobně');
 
-                        $this->input = substr($arg, strpos($arg, '=') + 1); // get input file name
+                        $this->input = substr($arg, strpos($arg, '=') + 1);  // get input file name
 
-                        $this->fileCheck($this->input);                     // checks if file is correct
+                        $this->fileCheck($this->input);          // checks if file is correct
 
                         break;
 
@@ -71,7 +65,7 @@ class arguments             // process and store given arguments
 
                         $this->query = substr($arg, strpos($arg, '=') + 1);      // store first command of query
 
-                        $this->fillingQuery($i, $argmnts, $argCount);               // store rest of the query
+                        $this->fillingQuery($i, $inputArgs, $argCount);          // store rest of the query
 
                         break;
 
@@ -80,7 +74,7 @@ class arguments             // process and store given arguments
                         if (isset($this->query))
                             throw new Exception('parametr query nelze zadat vícenásobně');
 
-                        $fileName = substr($arg, strpos($arg, '=') + 1); // store path to query filet
+                        $fileName = substr($arg, strpos($arg, '=') + 1); // store path to query file
 
                         $this->fillingQueryByFile($fileName);
 
@@ -96,37 +90,51 @@ class arguments             // process and store given arguments
                         break;
 
                     default :
-                        throw new Exception('zadán neznámý parameter ' . $arg);
+                        if ($arg == 'help') {
+
+                            echo self::help;
+
+                            if ($argCount > 2)
+                                throw new Exception('parameter help nelze kombinovat s jinymi parametry');
+                        }
+
+                        throw new Exception('zadan neznamy parameter ' . $arg);
                         break;
                 }
             } else {
-                if ($argmnts[$i] == '-n')
+                if ($inputArgs[$i] == '-n')
                     $this->nFlag = true;
-                else throw new Exception('zadán neznámý parameter ' . $argmnts[$i]);
+                else throw new Exception('zadán neznámý parameter ' . $inputArgs[$i]);
             }
         }
+
         if (empty($this->query))
             throw new Exception('nebyl zadán parametr query, ani qf');
+
+        if (empty($this->input))
+            $this->readInput();
+
+    }
+
+    private  function readInput () {        // read standard input
+         $this->input = file_get_contents('php://stdin');
     }
 
     private function fileCheck ($file) {    // check if file is correct
         if (!file_exists($file))
             throw new Exception('zadaný vstupní soubor neexistuje');
-
-        if (pathinfo($file, PATHINFO_EXTENSION) != 'xml')
-            throw new Exception('zadaný vstupní soubor nemá příponu xml');
     }
 
-    private function fillingQuery (&$i, $argmnts, $argCount) {      // filling query
+    private function fillingQuery (&$i, $inputArgs, $argCount) {      // filling query
         for (++$i;$i < $argCount; $i++) {                           // checks if it's possible to move on to next arg
-            if ((empty($argmnts[$i][1]))  ||                        // very complex condition
-                ((($argmnts[$i][0] == '-') && ($argmnts[$i][1] == '-')) ||
-                    (($argmnts[$i][0]== '-') && ($argmnts[$i][1] == 'n')))) {
+            if ((empty($inputArgs[$i][1]))  ||                      // very complex condition
+                ((($inputArgs[$i][0] == '-') && ($inputArgs[$i][1] == '-')) ||
+                    (($inputArgs[$i][0]== '-') && ($inputArgs[$i][1] == 'n')))) {
                 $i--;
                 break;
             }
 
-            $this->query = $this->query . ' ' . $argmnts[$i];   // add command to query
+            $this->query = $this->query . ' ' . $inputArgs[$i];   // add command to query
         }
     }
 
@@ -139,7 +147,7 @@ class arguments             // process and store given arguments
         fclose($file);
     }
 
-    // getters of private vars
+    // public getters functions
 
     public function getQuery () {
         return $this->query;
@@ -160,4 +168,15 @@ class arguments             // process and store given arguments
     public function getRoot () {
         return $this->root;
     }
+
+    // constants
+
+    const help = "•--help viz spolecne zadani vsech uloh
+• --input=filename zadanu vstupni soubor ve formatu XML
+• --output=filename zadany vystupni soubor ve formátu XML s obsahem podle zadaného dotazu
+• --query='dotaz' zadany dotaz v dotazovacím jazyce definovaném nize (v pripade zadani timto zpusobem nebude dotaz obsahovat symbol apostrof)
+• --qf=filename dotaz v dotazovacim jazyce definovaném nize zadany v externim textovem souboru (nelze kombinovat s --query)
+• -n negenerovat XML hlavicku na vystup skriptu
+• --root=element jmeno paroveho korenoveho elementu obalujici vysledky.
+Pokud nebude zadan, tak se vysledky neobaluji korenovým elementem, ac to porusuje validitu XML.";
 }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lolko>
+<book id="bk101" number="pes">
+<author id="42">
+Gambardella, Matthew
+</author>
+<title>
+koska
+</title>
+<year>
+1992
+</year>
+</book>
+</lolko>

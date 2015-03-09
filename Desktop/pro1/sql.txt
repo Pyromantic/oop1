@@ -1,2 +1,2 @@
-SELECT book LIMIT 3 FROM catalog WHERE year > 2000
+SELECT book LIMIT 3 FROM catalog WHERE (year > 1950 OR year > 2000) AND author.id CONTAINS "42"
 

@@ -38,7 +38,7 @@ class query {
 
 
     private function applyFrom () {         // apply SQL FROM, result stored in $output
-        if ($this->query['FROM'] === 'ROOT') {
+        if ($this->query['FROM'] == 'ROOT') {
             $this->output = $this->input;
             return;
         }
@@ -80,14 +80,13 @@ class query {
 
 
     private function applyLimit () {    // apply SQL LIMIT Command
-
         $this->input = $this->output;
 
         $this->output = NULL;
 
-        foreach ($this->input as $key)
+        foreach ($this->input as $item)
             if ($this->query['LIMIT']--)
-                $this->output[] = $key;
+                $this->output[] = $item;
             else
                 break;
     }
@@ -95,23 +94,38 @@ class query {
 
     private function applyWhere () {    // apply SQL WHERE Command
 
-        foreach ($this->query['WHERE'] as $actual) {
+        foreach ($this->query['WHERE'] as $sets) {
+            $rejected = array();
+            foreach ($sets as $actual) {
 
-            $negation = $actual['NOT'];             // get negation
+                $negation = $actual['NOT'];             // get negation
 
-            unset($actual['NOT']);                  // unset NOT element
+                unset($actual['NOT']);                  // unset NOT element
 
-            $this->input = $this->output;           // "reload" output
-            $this->output = NULL;
+                $affection = $actual['AFFECTION'];      // nonfunctional, saved for later versions
+                unset($actual['AFFECTION']);
 
-            if ($negation) {
-                foreach ($this->input as $tag)      // iterate through actual tag
-                    if (!$this->digDataByWhere($tag, $actual))
-                        $this->output[] = $tag;
-            } else {
-                foreach ($this->input as $tag)      // iterate through actual tag
-                    if ($this->digDataByWhere($tag, $actual))
-                        $this->output[] = $tag;
+                if ($affection == 'AND') {
+                    $this->input = $this->output;
+                    $this->output = NULL;
+                    $rejected = NULL;
+                } else {
+                    $this->input = $rejected;
+                }
+
+                if ($negation) {
+                    foreach ($this->input as $tag)      // iterate through actual tag
+                        if (!$this->digDataByWhere($tag, $actual))
+                            $this->output[] = $tag;
+                        else
+                            $rejected[] = $tag;
+                } else {
+                    foreach ($this->input as $tag)      // iterate through actual tag
+                        if ($this->digDataByWhere($tag, $actual))
+                            $this->output[] = $tag;
+                        else
+                            $rejected[] = $tag;
+                }
             }
         }
     }
@@ -137,21 +151,20 @@ class query {
 
         $result = false;
 
-        $operator = end($actual);
+        $condition =  function ($value) use ($actual) {       // evaluates condition
+            $operator = end($actual);
+            $key = key($actual);
 
-        $condition =  function ($value) use ($operator) {       // evaluates condition
-
-            $key = key($operator);
-
-            if ($key == 'CONTAINS') {
-               if (strpos($value, $operator['CONTAINS']) !== false)
+            if ($key == 'CONTAINS') {                       // if CONTAINS
+               if (strpos($value, $actual['CONTAINS']) !== false)
                    return true;
                 else
                    return false;
             }
-            return eval('return ' . '"' .
-                $value . '"'. $key . '"' . $operator[$key]
-                . '"' . ';');
+
+            return eval('return ' .
+                    $value  . $key .  $operator
+                     . ';');
         };
 
         foreach (array_slice($actual, 0, -1) as $index)
@@ -163,8 +176,6 @@ class query {
 
         return $result;
     }
-
-
 
     public function parseQuery ($query) {   // parse Query and sets individual elements
 
@@ -178,6 +189,16 @@ class query {
             return ($i == $count) ? die('SQL query error') : ++$i;
         };
 
+        $affection = function ($element) use ($inc) {
+
+            $inc();
+
+            if ($element == 'OR' || $element == 'AND')
+                return $element;
+
+            throw new Exception('Neplatna podminka v SQL query');
+        };
+
         for ($rule = 0; $i < $count; ++$rule)
             switch ($rule) {
                 case 0 && $query[$i] == 'SELECT' :
@@ -189,51 +210,68 @@ class query {
 
                 case 1 && $query[$i] == 'LIMIT' :
 
-                        $getLimit = function ($element) {       // checks if limit is integer
-                            if (!ctype_digit($element))
-                                throw new Exception('SQL LIMIT command must be NUMERIC and INTEGER');
-                            return intval($element);
-                        };
+                    $getLimit = function ($element) {       // checks if limit is integer
+                        if (!ctype_digit($element))
+                            throw new Exception('SQL LIMIT command must be NUMERIC and INTEGER');
+                        return intval($element);
+                    };
 
-                        $this->query['LIMIT'] = $getLimit ($query[$inc()]);
-                        $inc();
+                    $this->query['LIMIT'] = $getLimit ($query[$inc()]);
+                    $inc();
 
                     break;
 
                 case 2 && $query[$i] == 'FROM' :
 
-                       $this->query['FROM'] = $query[$inc()];
+                    $this->query['FROM'] = $query[$inc()];
 
                     ++$i;
                     break;
 
 
-                case 3 && $query[$i] == 'WHERE' :
+                case 3 && $query[$i] == 'WHERE':
+                case 4 && $query[$i] == 'AND' :
+                case 4 && $query[$i] == 'OR' :
+
+
+                    $defaultAffection = ($query[$i] != 'WHERE') ?  $query[$i] : 'AND' ;
+
+                    $inc();
+
+                    $negation = false;
+
+                    while ($query[$i] == 'NOT') {                           // handles negation
+                        $negation = !$negation;
+                        $inc();
+                    }
+
+                    $actual = (isset($this->query['WHERE'])) ? count($this->query['WHERE']) : 0;  // set list
+
+                    $bracket = false;
+
+                    if ($query[$i][0] === '(') {
+                        $query[$i] = substr($query[$i], 1);                  // cuts (
+                        $bracket = true;
+                    }
+
+                    do {
+
+                        $tmp = (isset($this->query['WHERE'][$actual])) ? $affection($query[$i]) : $defaultAffection;
+
+                        $condition = $this->getCondition($inc, $query, $i, $bracket);   // sets condition
+
+                        $condition['NOT'] = $negation;                                  // sets negation
+
+                        $condition['AFFECTION'] = $tmp;
+
+                        // sets affection, default AND
+
+                        $this->query['WHERE'][$actual][] = $condition;
 
                         $inc();
+                    } while ($bracket);
 
-                        $negation = false;
 
-                        while ($query[$i] == 'NOT') {
-                            $negation = !$negation;
-                            $inc();
-                        }
-
-                        $getWhere = function ($element) {   // returns array of sought elements / attributes
-                            return array_reverse(explode ('.', $element));
-                        };
-
-                        $actual = (isset($this->query['WHERE'])) ? count($this->query['WHERE']) : 0 ;
-
-                        $this->query['WHERE'][$actual] = $getWhere ($query[$i]);
-
-                        $inc();
-
-                        array_push($this->query['WHERE'][$actual], $this->getCondition($inc, $query, $i));
-
-                        $this->query['WHERE'][$actual]['NOT'] = $negation;
-
-                        $inc();
                     break;
 
                 default :
@@ -242,9 +280,16 @@ class query {
 
                     break;
             }
+
     }
 
-    private function getCondition ($inc, $query, &$i) {
+
+    private function getCondition ($inc, $query, &$i, &$bracket) {
+
+        $result = array_reverse(explode ('.', $query[$i]));  // sets first operand + attributes
+
+        $inc();
+
         if ($query[$i] == 'CONTAINS') {
             $inc();
             if (($query[$i][0] != "\"") && ($query[$i][strlen($query[$i])-1] != "\""))
@@ -267,21 +312,25 @@ class query {
         if (empty($operand))
             throw new Exception ('SQL wrong operand');
 
-
         $inc();
 
-        $value = '';
+        $value = NULL;
 
         if (($query[$i][0] != "\"") && ($query[$i][strlen($query[$i])-1] != "\""))
             $value = trim($query[$i], "\"");
         else
-            if (ctype_digit($query[$i]))
-                $value = intval($query[$i]);
-            else
-                $value = $query[$i];
+            $value = (ctype_digit($query[$i])) ? intval($query[$i]) : $query[$i];
 
+        if ($value[strlen($value)-1] === ')') {
+            $bracket = false;
 
-        $result[$operand] = $query[$i];
+            $value = substr($value, 0, -1);
+
+            if (ctype_digit($value))
+                $value =  intval($value);
+        }
+
+        $result[$operand] = $value;
 
         return $result;
     }
