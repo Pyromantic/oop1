@@ -24,9 +24,8 @@ class query {
     }
 
 
-    public function applyQuery () {
 
-        var_dump($this->query['WHERE']);exit;
+    public function applyQuery () {
 
         $this->applyFrom();         // apply FROM Command
 
@@ -38,9 +37,8 @@ class query {
         if (isset($this->query['WHERE']))
             $this->applyWhere();    // apply WHERE Command
 
-        if (isset($this->query['ORDER']))
+        if (isset($this->query['ORDER']) && (count($this->output) > 2))
             $this->applyOrder();    // apply ORDER Command
-
 
     }
 
@@ -186,12 +184,47 @@ class query {
     }
 
 
-    private function applyOrder () {
+    private function applyOrder () {    // apply SQL query ORDER BY command
 
-        $this->input =  $this->output;
+        $this->input = $this->output;
         $this->output = NULL;
 
+        $order = array();
+
+        foreach ($this->input as $inputTag)
+            $this->orderNests($order, $inputTag);
+
+        switch ($this->query['ORDER']['DIRECTION']) {   // sorts array elements
+            case 'ASC' :
+                arsort($order);
+                break;
+
+            case 'DESC' :
+                asort($order);
+                break;
+        }
+
+        foreach ($order as $key => $tag) // apply sorted array to output
+            $this->output[$key] = $this->input[$key];
+
     }
+
+    private function orderNests (&$order, $input) {     //  nests through given arrays, return when sought element is found
+        $element = $this->query['ORDER']['ELEMENT'];
+
+        foreach($input as $tag)
+            if (isset($tag[$element])) {
+                  $order[] = $tag[$element][0];
+                return;
+            } else {
+                if (!is_array($tag))
+                    return;
+                $this->orderNests($order, $tag);
+            }
+
+
+    }
+
 
     public function parseQuery ($query) {   // parse Query and sets individual elements
 
@@ -291,9 +324,9 @@ class query {
                         if ($query[$inc()] != 'BY')
                             throw new Exception('SQL query error, ocekavany BY, misto toho ' . $query[$i]);
 
-                        $this->query['ORDER'][] = $query[$inc()];       // order by ,numeric int expected
+                        $this->query['ORDER']['ELEMENT'] = $query[$inc()];       // order by ,int var expected
 
-                        $this->query['ORDER'][] = $query[$inc()];       // desc / asc
+                        $this->query['ORDER']['DIRECTION'] = $query[$inc()];     // desc / asc
 
                         $inc();
 
