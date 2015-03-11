@@ -228,7 +228,11 @@ class query {
 
     public function parseQuery ($query) {   // parse Query and sets individual elements
 
-        $query = explode(" ", trim($query));
+        $query = explode(" ", trim($query));        // parse input query
+
+        $query = array_filter($query, 'strlen');    // remove empty fields
+
+        $query = array_values($query);              // reset array numbering
 
         $count = count($query);                     // counts elements of query
 
@@ -339,7 +343,6 @@ class query {
 
             }
 
-
         if ($i != $count)                               // asks for end
             throw new Exception('SQL query error, ocekavany konec query po ' . $query[$i]);
     }
@@ -357,14 +360,14 @@ class query {
         $bracket = false;
 
         if ($query[$i][0] === '(') {             // handles brackets
-            $query[$i] = substr($query[$i], 1);  // cuts (
+            $query[$i] = isset($query[$i][1]) ? substr($query[$i], 1) : $inc();     // cuts (
             $bracket = true;
         }
 
-        $iterationCount = 0;                    // sets iteration count
+        $iterationCount = 0;                     // sets iteration count
 
         do {
-            $iteration();
+            $iteration();                                                   // increments flag of iteration
 
             $tmp = ($iterationCount - 1) ? $affection($query[$i]) : $defaultAffection;
 
@@ -418,12 +421,19 @@ class query {
             $value = (ctype_digit($query[$i])) ? intval($query[$i]) : $query[$i];
 
         if ($value[strlen($value)-1] === ')') {
-            $bracket = false;
+
+            if ($bracket)
+                $bracket = false;
+            else
+                throw new Exception('SQL query error, nalezla uzavrena zavorka');
 
             $value = substr($value, 0, -1);
 
             if (ctype_digit($value))
                 $value =  intval($value);
+        } elseif ($query[$i + 1] == ')') {
+            $bracket = false;
+            $inc();
         }
 
         $result[$operand] = $value;

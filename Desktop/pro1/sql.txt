@@ -1,2 +1,2 @@
-SELECT book LIMIT 3 FROM catalog WHERE (year > 1950 OR year > 2000) ORDER BY year ASC
+SELECT book LIMIT 3 FROM catalog WHERE (year > 1950 OR year > 2000 )   ORDER BY year ASC
 
