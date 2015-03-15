@@ -1,10 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Michal
- * Date: 27/02/2015
- * Time: 19:06
- */
+
+//XQR:xhodan08
+
 
 class xmlFileGenerator {
 
@@ -75,7 +72,7 @@ class xmlFileGenerator {
 
     private function write2File () {    // generates an output file
 
-        $file = fopen($this->fileName, "w") or die ('nelze vztvořit soubor');
+        $file = fopen($this->fileName, "w") or die (3);
 
         fwrite($file, $this->output);
 

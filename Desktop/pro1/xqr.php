@@ -1,4 +1,7 @@
 <?php
+
+//XQR:xhodan08
+
 require 'arguments.php';                // Arguments Class
 require 'xmlParser.php';                // XML Parser Class
 require 'query.php';                    // query Class
@@ -10,7 +13,7 @@ try {
     $args->argsProcess($argv, $argc);           // process arguments
 
 } catch (Exception $e) {
-    die('Caught exception: ' . $e->getMessage() . "\n");
+    die(1);
 }
 
 $xmlParser = new xmlParser();                   // new XML parser
@@ -20,7 +23,7 @@ $xmlParser->add2InputFront($args->getInput());  // sets input for XML parser
 try {
     $xmlParser->parseXml();                     // parse XML
 } catch (Exception $e) {
-    die('Caught exception: ' . $e->getMessage() . "\n");
+    die(4);
 }
 
 $query = new query();                           // new query applier
@@ -32,7 +35,8 @@ try {
 
     $query->applyQuery();                       // applies query
 } catch (Exception $e) {
-    die('Caught exception: ' . $e->getMessage() . "\n");
+    error_log("Caught Exception: " . $e->getMessage());
+    die(80);
 }
 
 $xmlGenerator = new xmlFileGenerator($args->getOutput());   // new XML File Generator
@@ -43,11 +47,9 @@ $xmlGenerator->setRoot($args->getRoot());       // sets root tag name
 
 $xmlGenerator->setXML($query->getOutputXML());  // sets parsed XMLl
 
-try {
-    $xmlGenerator->generateXML();               // generates XML file
-} catch (Exception $e) {
-    die('Caught exception: ' . $e->getMessage() . "\n");
-}
+
+$xmlGenerator->generateXML();                   // generates XML file
+
 
 exit;
 

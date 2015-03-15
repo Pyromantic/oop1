@@ -1,10 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Michal
- * Date: 17/02/2015
- * Time: 15:31
- */
+
+//XQR:xhodan08
 
 class arguments             // process and store given arguments
 {
@@ -91,11 +87,10 @@ class arguments             // process and store given arguments
 
                     default :
                         if ($arg == 'help') {
-
-                            echo self::help;
-
                             if ($argCount > 2)
                                 throw new Exception('parameter help nelze kombinovat s jinymi parametry');
+
+                            echo self::help;
                         }
 
                         throw new Exception('zadan neznamy parameter ' . $arg);
@@ -116,13 +111,13 @@ class arguments             // process and store given arguments
 
     }
 
-    private  function readInput () {        // read standard input
+    private function readInput () {        // read standard input
          $this->input = file_get_contents('php://stdin');
     }
 
     private function fileCheck ($file) {    // check if file is correct
         if (!file_exists($file))
-            throw new Exception('zadaný vstupní soubor neexistuje');
+            die (2);
     }
 
     private function fillingQuery (&$i, $inputArgs, $argCount) {      // filling query
@@ -140,7 +135,7 @@ class arguments             // process and store given arguments
 
     private function fillingQueryByFile ($fileName) {
 
-        $file = fopen($fileName, 'r') or die ('Soubor ' . $fileName . ' nelze otevřít' . "\n");
+        $file = fopen($fileName, 'r') or die (2);
 
         $this->query = fread($file, filesize($fileName));
 

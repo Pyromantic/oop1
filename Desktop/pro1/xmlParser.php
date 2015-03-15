@@ -1,10 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: eee
- * Date: 2/21/15
- * Time: 10:15 AM
- */
+
+//XQR:xhodan08
 
 class xmlParser {
 
@@ -94,7 +90,7 @@ class xmlParser {
 
             return $tag;
         }
-        else throw new Exception ('kuraw fix');
+        else throw new Exception ('invalid input');
     }
 
     private function determinateTag () {   // returns name of a XML tag
@@ -173,7 +169,7 @@ class xmlParser {
 
     private function setNextInput () {      // sets active input
 
-        $file = fopen($this->inputFront, 'r') or die ('Soubor ' . $this->inputFront . ' nelze otevřít' . "\n");
+        $file = fopen($this->inputFront, 'r') or die (2);
 
         $this->input = fread($file, filesize($this->inputFront));
 

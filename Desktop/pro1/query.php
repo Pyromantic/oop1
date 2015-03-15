@@ -1,10 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Michal
- * Date: 25/02/2015
- * Time: 15:04
- */
+
+//XQR:xhodan08
 
 class query {
 
@@ -16,7 +12,7 @@ class query {
 
 
     function __construct () {
-
+        $this->output = NULL;
     }
 
     function __destruct () {
@@ -26,6 +22,9 @@ class query {
 
 
     public function applyQuery () {
+
+        if (empty($this->query['FROM']))
+            return;
 
         $this->applyFrom();         // apply FROM Command
 
@@ -37,7 +36,7 @@ class query {
         if (isset($this->query['WHERE']))
             $this->applyWhere();    // apply WHERE Command
 
-        if (isset($this->query['ORDER']) && (count($this->output) > 2))
+        if (isset($this->query['ORDER']))
             $this->applyOrder();    // apply ORDER Command
 
     }
@@ -65,7 +64,7 @@ class query {
 
 
     private function applySelect () {       // apply SQL SELECT, result stored in $output
-        $this->input = $this->output;           // sets newly parsed input
+        $this->input = $this->output;       // sets newly parsed input
 
         $this->output = NULL;
 
@@ -99,9 +98,8 @@ class query {
 
 
     private function applyWhere () {    // apply SQL WHERE Command
-
+        $rejected = array();
         foreach ($this->query['WHERE'] as $sets) {
-            $rejected = array();
             foreach ($sets as $actual) {
 
                 $negation = $actual['NOT'];             // get negation
@@ -184,7 +182,8 @@ class query {
     }
 
 
-    private function applyOrder () {    // apply SQL query ORDER BY command
+    private function applyOrder ()
+    {    // apply SQL query ORDER BY command
 
         $this->input = $this->output;
         $this->output = NULL;
@@ -204,9 +203,13 @@ class query {
                 break;
         }
 
-        foreach ($order as $key => $tag) // apply sorted array to output
-            $this->output[$key] = $this->input[$key];
+        $position = 1;
 
+        foreach ($order as $key => $tag) { // apply sorted array to output
+            $this->orderAssignNests($this->input[$key], $position);
+            $this->output[$key] = $this->input[$key];
+            ++$position;
+        }
     }
 
     private function orderNests (&$order, $input) {     //  nests through given arrays, return when sought element is found
@@ -225,6 +228,25 @@ class query {
 
     }
 
+    private function orderAssignNests (&$input, $position) {
+        if (!is_array($input))
+            return;
+
+        if (empty($input['order'])) {
+
+            $tmp['order'] = array(0 => $position);
+            $input = $tmp + $input;
+
+            end($input);
+            $last = &$input[key($input)];   // next tag is last
+
+            foreach ($last as &$tag) {
+                if (!is_array($tag))
+                    continue;
+                $this->orderAssignNests($tag, $position);
+            }
+        }
+    }
 
     public function parseQuery ($query) {   // parse Query and sets individual elements
 
@@ -241,7 +263,7 @@ class query {
         $iterationCount = 0;                        // count of iterations over brackets
 
         $inc = function () use (&$i, $count) {      // increments index of query filed
-            return ($i == $count) ? die('SQL query error') : ++$i;
+            return ($i == $count) ? die(4) : ++$i;
         };
 
         $affection = function ($element) use ($inc) {   // checks affection
@@ -251,7 +273,7 @@ class query {
             if ($element == 'OR' || $element == 'AND')
                 return $element;
 
-            throw new Exception('Neplatna podminka v SQL query');
+            throw new Exception('Neplatne logicke spojeni (AND/OR) v SQL query');
         };
 
         $iteration = function () use (&$iterationCount) {   // increments iteration count
@@ -268,11 +290,13 @@ class query {
 
                     break;
 
-                case 1 && $query[$i] == 'LIMIT' :
+                case 1 :
+                    if ($query[$i] != 'LIMIT')
+                        continue;
 
                     $getLimit = function ($element) {       // checks if limit is integer
                         if (!ctype_digit($element))
-                            throw new Exception('SQL LIMIT command must be NUMERIC and INTEGER');
+                            throw new Exception('SQL LIMIT prikaz musi byt celo-ciselny');
                         return intval($element);
                     };
 
@@ -283,7 +307,13 @@ class query {
 
                 case 2 && $query[$i] == 'FROM' :
 
-                    $this->query['FROM'] = $query[$inc()];
+                    $element = $query[$inc()];
+
+                    if (($element == 'ORDER') ||
+                        ($element == 'WHERE'))
+                        return;
+
+                    $this->query['FROM'] = $element;
 
                     $inc();
                     break;
@@ -300,7 +330,7 @@ class query {
 
                 default :
 
-                    throw new Exception('Unknown query command' . $this->query[$i]);
+                    throw new Exception('Neznamy query prikaz/pozice prikazu');
 
                     break;
             }
@@ -338,7 +368,7 @@ class query {
                     break;
 
                     default :
-                        throw new Exception('Unknown query command' . $this->query[$i]);
+                        throw new Exception('nezname query prikaz' . $this->query[$i]);
                         break;
 
             }
@@ -392,7 +422,7 @@ class query {
         if ($query[$i] == 'CONTAINS') {
             $inc();
             if (($query[$i][0] != "\"") && ($query[$i][strlen($query[$i])-1] != "\""))
-                throw new Exception('CONTAINS Element must be string');
+                throw new Exception('CONTAINS Element musi byt retezec');
             $result['CONTAINS'] = trim($query[$i], "\"");
             return $result;
         }
@@ -409,7 +439,7 @@ class query {
             $operand = $query[$i] . '=';
 
         if (empty($operand))
-            throw new Exception ('SQL wrong operand');
+            throw new Exception ('SQL neznamy operand ' .  $query[$i]);
 
         $inc();
 
@@ -425,7 +455,7 @@ class query {
             if ($bracket)
                 $bracket = false;
             else
-                throw new Exception('SQL query error, nalezla uzavrena zavorka');
+                throw new Exception('SQL query error, nalezena uzavrena zavorka pouze s jednou hodnotou');
 
             $value = substr($value, 0, -1);
 
