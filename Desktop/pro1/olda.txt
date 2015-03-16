@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<lolko>
-<book id="bk101" number="pes">
-<author id="42">
+<book order="1" id="bk105">
+<author order="1">
+shieet
+</author>
+<title order="1">
+XML Developer's Guide
+</title>
+<year order="1">
+2005
+</year>
+</book>
+<book order="2" id="bk101" number="pes">
+<author order="2" id="42">
 Gambardella, Matthew
 </author>
-<title>
+<title order="2">
 koska
 </title>
-<year>
+<year order="2">
 1992
 </year>
 </book>
-</lolko>

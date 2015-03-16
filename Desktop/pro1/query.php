@@ -23,6 +23,8 @@ class query {
 
     public function applyQuery () {
 
+        var_dump($this->query['WHERE']);exit;
+
         if (empty($this->query['FROM']))
             return;
 
@@ -327,7 +329,6 @@ class query {
 
                     break;
 
-
                 default :
 
                     throw new Exception('Neznamy query prikaz/pozice prikazu');
@@ -367,10 +368,9 @@ class query {
                         break;
                     break;
 
-                    default :
-                        throw new Exception('nezname query prikaz' . $this->query[$i]);
-                        break;
-
+                default :
+                    throw new Exception('nezname query prikaz' . $this->query[$i]);
+                    break;
             }
 
         if ($i != $count)                               // asks for end
@@ -407,7 +407,10 @@ class query {
 
             $condition['AFFECTION'] = $tmp;                                 // sets affection, default AND
 
-            $this->query['WHERE'][$actual][] = $condition;                  // sets condition
+            if (isset($this->query['WHERE'][0]) && $tmp == 'AND')
+                array_unshift($this->query['WHERE'], $condition);           // push condition
+            else
+                $this->query['WHERE'][$actual] = $condition;                // sets condition
 
             $inc();
         } while ($bracket);
