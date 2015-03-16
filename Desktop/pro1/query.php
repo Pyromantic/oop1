@@ -323,9 +323,9 @@ class query {
                     $inc();
 
                     $brackets = 0;
-
+                    $negationDomination = false;
                     $this->query['WHERE'][] = $this->conditionHandle
-                    ($inc, $query, $i, $brackets, 'AND', $affection);
+                    ($inc, $query, $i, $brackets, 'AND', $affection, $negationDomination);
 
                     break;
 
@@ -346,7 +346,7 @@ class query {
                     $brackets = 0;
 
                      array_unshift($this->query['WHERE'] , $this->conditionHandle
-                    ($inc, $query, $i, $brackets, 'AND', $affection));
+                    ($inc, $query, $i, $brackets, 'AND', $affection, $negationDomination));
 
                     break;
 
@@ -357,7 +357,7 @@ class query {
                     $brackets = 0;
 
                     $this->query['WHERE'][] = $this->conditionHandle
-                    ($inc, $query, $i, $brackets, 'OR', $affection);
+                    ($inc, $query, $i, $brackets, 'OR', $affection, $negationDomination);
 
 
                     break;
@@ -410,7 +410,8 @@ class query {
                 if (isset($tmp[0]))
                     $field[] = $tmp;
 
-                $field[] = substr($item, $position);
+                if ($item !== false)
+                    $field[] = substr($item, $position);
             }
              else
                 $field[] = $item;
@@ -440,10 +441,17 @@ class query {
                 $field[] = $item;
         }
 
+
+
         return $field;
     }
 
-    private function conditionHandle ($inc, $query, &$i, &$brackets, $defaultAffection, $affection) {
+    private function conditionHandle ($inc, $query, &$i, &$brackets, $defaultAffection, $affection, &$negationDomination) {
+
+        while ($query[$i] == 'NOT') {            // handles negation
+            $negationDomination = !$negationDomination;
+            $inc();
+        }
 
         if ($query[$i][self::FIRST] === '(') {   // handles brackets
             $inc();
@@ -451,7 +459,7 @@ class query {
             $brackets++;
 
             $condition = $this->conditionHandle  // recursion
-            ($inc, $query, $i, $brackets, $defaultAffection, $affection);
+            ($inc, $query, $i, $brackets, $defaultAffection, $affection, $negationDomination);
 
             if (!$brackets) return $condition;
 
@@ -466,7 +474,7 @@ class query {
             $condition[] = $tmp;
 
             $tmp = $this->conditionHandle  // recursion
-            ($inc, $query, $i, $brackets, NULL, $affection);
+            ($inc, $query, $i, $brackets, NULL, $affection, $negationDomination);
 
             if ($tmp['AFFECTION'] == 'AND')
                 array_unshift($condition, $tmp);                      // push condition
@@ -476,7 +484,7 @@ class query {
             return $condition;
         }
 
-        $negation = false;
+        $negation = $negationDomination ? true : false;
 
         while ($query[$i] == 'NOT') {            // handles negation
             $negation = !$negation;
