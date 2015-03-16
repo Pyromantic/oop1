@@ -5,6 +5,7 @@
 class query {
 
     const QUE = 3;           // query unique elements
+    const FIRST = 0;         // represents first element of array
 
     private $query;          // parsed SQL query
     private $input;          // parsed XML
@@ -23,8 +24,6 @@ class query {
 
     public function applyQuery () {
 
-        var_dump($this->query['WHERE']);exit;
-
         if (empty($this->query['FROM']))
             return;
 
@@ -32,13 +31,13 @@ class query {
 
         $this->applySelect();       // apply SELECT Command
 
-        if (isset($this->query['LIMIT']))
+        if (isset($this->query['LIMIT']) && isset($this->output))
             $this->applyLimit();    // apply LIMIT Command
 
-        if (isset($this->query['WHERE']))
+        if (isset($this->query['WHERE']) && isset($this->output))
             $this->applyWhere();    // apply WHERE Command
 
-        if (isset($this->query['ORDER']))
+        if (isset($this->query['ORDER']) && isset($this->output))
             $this->applyOrder();    // apply ORDER Command
 
     }
@@ -102,39 +101,46 @@ class query {
     private function applyWhere () {    // apply SQL WHERE Command
         $rejected = array();
         foreach ($this->query['WHERE'] as $sets) {
-            foreach ($sets as $actual) {
-
-                $negation = $actual['NOT'];             // get negation
-
-                unset($actual['NOT']);                  // unset NOT element
-
-                $affection = $actual['AFFECTION'];      // nonfunctional, saved for later versions
-                unset($actual['AFFECTION']);
-
-                if ($affection == 'AND') {
-                    $this->input = $this->output;
-                    $this->output = NULL;
-                    $rejected = NULL;
-                } else {
-                    $this->input = $rejected;
-                }
-
-                if ($negation) {
-                    foreach ($this->input as $tag)      // iterate through actual tag
-                        if (!$this->digDataByWhere($tag, $actual))
-                            $this->output[] = $tag;
-                        else
-                            $rejected[] = $tag;
-                } else {
-                    foreach ($this->input as $tag)      // iterate through actual tag
-                        if ($this->digDataByWhere($tag, $actual))
-                            $this->output[] = $tag;
-                        else
-                            $rejected[] = $tag;
-                }
+            if (isset($sets['NOT'])) {
+                $this->whereNests($sets, $rejected);
+            } else {
+                foreach ($sets as $actual)
+                    $this->whereNests($actual, $rejected);
             }
         }
     }
+
+    private function whereNests ($actual, $rejected) {
+            $negation = $actual['NOT'];             // get negation
+
+            unset($actual['NOT']);                  // unset NOT element
+
+            $affection = $actual['AFFECTION'];      // nonfunctional, saved for later versions
+            unset($actual['AFFECTION']);
+
+            if ($affection == 'AND') {
+                $this->input = $this->output;
+                $this->output = NULL;
+                $rejected = NULL;
+            } else {
+                $this->input = $rejected;
+            }
+
+            if ($negation) {
+                foreach ($this->input as $tag)      // iterate through actual tag
+                    if (!$this->digDataByWhere($tag, $actual))
+                        $this->output[] = $tag;
+                    else
+                        $rejected[] = $tag;
+            } else {
+                foreach ($this->input as $tag)      // iterate through actual tag
+                    if ($this->digDataByWhere($tag, $actual))
+                        $this->output[] = $tag;
+                    else
+                        $rejected[] = $tag;
+            }
+    }
+
 
     private function digDataByWhere ($input, $actual) {  //  iterates through given array
 
@@ -252,17 +258,11 @@ class query {
 
     public function parseQuery ($query) {   // parse Query and sets individual elements
 
-        $query = explode(" ", trim($query));        // parse input query
-
-        $query = array_filter($query, 'strlen');    // remove empty fields
-
-        $query = array_values($query);              // reset array numbering
+        $query = $this->prepareQuery($query);       // prepares query
 
         $count = count($query);                     // counts elements of query
 
-        $i = 0;                                     // index of query field
-
-        $iterationCount = 0;                        // count of iterations over brackets
+        $i = self::FIRST;                           // index of query field
 
         $inc = function () use (&$i, $count) {      // increments index of query filed
             return ($i == $count) ? die(4) : ++$i;
@@ -276,11 +276,6 @@ class query {
                 return $element;
 
             throw new Exception('Neplatne logicke spojeni (AND/OR) v SQL query');
-        };
-
-        $iteration = function () use (&$iterationCount) {   // increments iteration count
-            if (++$iterationCount > 2)
-                throw new Exception('SQL query error, mnoho elementu v zavorkach');
         };
 
         for ($rule = 0; $rule <= self::QUE; ++$rule)    // iterates over elements of query
@@ -325,8 +320,11 @@ class query {
 
                     $inc();
 
-                    $this->affectionHandle ($inc, $affection, $iteration, $query, $i, $iterationCount, 'AND');
+                    //$this->affectionHandle ($inc, $affection, $query, $i, 'AND');
 
+                    $brackets = 0;
+                    $this->query['WHERE'][] = $this->conditionHandle
+                    ($inc, $query, $i, $brackets, 'AND', $affection);
                     break;
 
                 default :
@@ -343,7 +341,8 @@ class query {
 
                     $inc();
 
-                    $this->affectionhandle ($inc, $affection, $iteration, $query, $i, $iterationCount, 'AND') ;
+                     array_unshift($this->query['WHERE'] , $this->conditionHandle
+                    ($inc, $query, $i, $brackets, 'AND', $affection));
 
                     break;
 
@@ -351,7 +350,9 @@ class query {
 
                     $inc();
 
-                    $this->affectionhandle ($inc, $affection, $iteration, $query, $i, $iterationCount, 'OR') ;
+                    $this->query['WHERE'][] = $this->conditionHandle
+                    ($inc, $query, $i, $brackets, 'OR', $affection);
+
 
                     break;
 
@@ -369,7 +370,7 @@ class query {
                     break;
 
                 default :
-                    throw new Exception('nezname query prikaz' . $this->query[$i]);
+                    throw new Exception('nezname query prikaz');
                     break;
             }
 
@@ -377,7 +378,98 @@ class query {
             throw new Exception('SQL query error, ocekavany konec query po ' . $query[$i]);
     }
 
-    private function affectionHandle ($inc, $affection, $iteration, $query, &$i, &$iterationCount, $defaultAffection) {
+    private function prepareQuery ($query) {        // parse input query
+
+        $query = explode(" ", trim($query));        // parse input query
+
+        $query = array_filter($query, 'strlen');    // remove empty fields
+
+        $field = array();
+
+        foreach ($query as &$item) {                // separates left brackets (
+            if (($position = strpos($item, '(')) !== false) {
+                while (($position = strpos($item, '(')) !== false) {
+
+                    $tmp = substr($item, 0, $position);
+
+                    if (isset($tmp[0]))
+                        $field[] = $tmp;
+
+                    $field[] = '(';
+
+                    $item = substr($item, $position + 1);
+                }
+                $tmp = substr($item, 0, $position);
+
+                if (isset($tmp[0]))
+                    $field[] = $tmp;
+
+                $field[] = substr($item, $position);
+            }
+             else
+                $field[] = $item;
+        }
+
+        $query = $field;
+        $field = array();
+
+        foreach ($query as &$item) {                 // separates right brackets )
+            if (($position = strpos($item, ')')) !== false) {
+                while (($position = strpos($item, ')')) !== false) {
+
+                    $tmp = substr($item, 0, $position);
+
+                    if (isset($tmp[0]))
+                        $field[] = $tmp;
+
+                    $item = substr($item, $position + 1);
+                    $field[] = ')';
+
+                }
+
+                $tmp = substr($item, $position + 1);
+                if (isset($tmp[0]))
+                    $field[] = $tmp;
+            } else
+                $field[] = $item;
+        }
+
+        return $field;
+    }
+
+    private function conditionHandle ($inc, $query, &$i, &$brackets, $defaultAffection, $affection) {
+
+        if ($query[$i][self::FIRST] === '(') {   // handles brackets
+            $inc();
+
+            $brackets++;
+
+            $condition = $this->conditionHandle  // recursion
+            ($inc, $query, $i, $brackets, $defaultAffection, $affection);
+
+            if (!$brackets) return $condition;
+
+            while ($query[$i] == ')') {
+                --$brackets;
+                $inc();
+                if (!$brackets) return $condition;
+            }
+
+            $tmp = $condition;
+            $condition = NULL;
+            $condition[] = $tmp;
+
+            $tmp = $this->conditionHandle  // recursion
+            ($inc, $query, $i, $brackets, NULL, $affection);
+
+            if ($tmp['AFFECTION'] == 'AND')
+                array_unshift($condition, $tmp);                      // push condition
+            else
+                $condition[] = $tmp;
+
+            return $condition;
+        }
+
         $negation = false;
 
         while ($query[$i] == 'NOT') {            // handles negation
@@ -385,40 +477,26 @@ class query {
             $inc();
         }
 
-        $actual = isset($this->query['WHERE']) ? count($this->query['WHERE']) : 0;  // set list
+        if (empty($defaultAffection))
+            $defaultAffection = $affection($query[$i]);
 
-        $bracket = false;
+        $condition = $this->getCondition($inc, $query, $i, $brackets);  // gets condition
 
-        if ($query[$i][0] === '(') {             // handles brackets
-            $query[$i] = isset($query[$i][1]) ? substr($query[$i], 1) : $inc();     // cuts (
-            $bracket = true;
-        }
+        $condition['NOT'] = $negation;                                  // sets negation
 
-        $iterationCount = 0;                     // sets iteration count
+        $condition['AFFECTION'] = $defaultAffection;                    // sets affection
 
-        do {
-            $iteration();                                                   // increments flag of iteration
+        $defaultAffection = NULL;
 
-            $tmp = ($iterationCount - 1) ? $affection($query[$i]) : $defaultAffection;
-
-            $condition = $this->getCondition($inc, $query, $i, $bracket);   // gets condition
-
-            $condition['NOT'] = $negation;                                  // sets negation
-
-            $condition['AFFECTION'] = $tmp;                                 // sets affection, default AND
-
-            if (isset($this->query['WHERE'][0]) && $tmp == 'AND')
-                array_unshift($this->query['WHERE'], $condition);           // push condition
-            else
-                $this->query['WHERE'][$actual] = $condition;                // sets condition
-
-            $inc();
-        } while ($bracket);
+        return $condition;
     }
 
-    private function getCondition ($inc, $query, &$i, &$bracket) {
+    private function getCondition ($inc, $query, &$i, &$brackets) {
 
         $result = array_reverse(explode ('.', $query[$i]));  // sets first operand + attributes
+
+        if (count($result) > 2)
+            throw new Exception('Neplatny pocet operandu v podmince');
 
         $inc();
 
@@ -427,49 +505,43 @@ class query {
             if (($query[$i][0] != "\"") && ($query[$i][strlen($query[$i])-1] != "\""))
                 throw new Exception('CONTAINS Element musi byt retezec');
             $result['CONTAINS'] = trim($query[$i], "\"");
+
+            $inc();
+
             return $result;
         }
 
         $operand = NULL;
 
-        if ($query[$i] == '<')
-            $operand = $query[$i];
-
-        if ($query[$i] == '>')
-            $operand = $query[$i];
-
-        if ($query[$i] == '=')
-            $operand = $query[$i] . '=';
-
-        if (empty($operand))
-            throw new Exception ('SQL neznamy operand ' .  $query[$i]);
+        switch ($query[$i]) {
+            case '<' :
+            case '>' :
+                $operand = $query[$i];
+                break;
+            case '=' :
+                $operand = $query[$i] . '=';
+                break;
+            default :
+                throw new Exception ('SQL neznamy operand ' .  $query[$i]);
+        }
 
         $inc();
 
         $value = NULL;
 
-        if (($query[$i][0] != "\"") && ($query[$i][strlen($query[$i])-1] != "\""))
+        if (($query[$i][self::FIRST] != "\"") && ($query[$i][strlen($query[$i])-1] != "\""))
             $value = trim($query[$i], "\"");
         else
             $value = (ctype_digit($query[$i])) ? intval($query[$i]) : $query[$i];
 
-        if ($value[strlen($value)-1] === ')') {
+        $result[$operand] = $value;
 
-            if ($bracket)
-                $bracket = false;
-            else
-                throw new Exception('SQL query error, nalezena uzavrena zavorka pouze s jednou hodnotou');
+        $inc();
 
-            $value = substr($value, 0, -1);
-
-            if (ctype_digit($value))
-                $value =  intval($value);
-        } elseif ($query[$i + 1] == ')') {
-            $bracket = false;
+        if ($query[$i] == ')') {
+            --$brackets;
             $inc();
         }
-
-        $result[$operand] = $value;
 
         return $result;
     }
