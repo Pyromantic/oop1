@@ -52,8 +52,8 @@
                 <file leaf-file-name="query.php" pinned="false" current-in-tab="true">
                   <entry file="file://$PROJECT_DIR$/Desktop/pro1/query.php">
                     <provider selected="true" editor-type-id="text-editor">
-                      <state vertical-scroll-proportion="0.9131334" vertical-offset="10457" max-vertical-offset="11781">
-                        <caret line="544" column="0" selection-start-line="544" selection-start-column="0" selection-end-line="544" selection-end-column="0" />
+                      <state vertical-scroll-proportion="0.9131334" vertical-offset="10583" max-vertical-offset="11907">
+                        <caret line="550" column="0" selection-start-line="550" selection-start-column="0" selection-end-line="550" selection-end-column="0" />
                         <folding>
                           <element signature="n#__construct#0;n#query#0;n#!!top" expanded="false" />
                           <element signature="n#__destruct#0;n#query#0;n#!!top" expanded="false" />
@@ -69,8 +69,8 @@
                 <file leaf-file-name="query.php" pinned="false" current-in-tab="true">
                   <entry file="file://$PROJECT_DIR$/Desktop/pro1/query.php">
                     <provider selected="true" editor-type-id="text-editor">
-                      <state vertical-scroll-proportion="0.4674752" vertical-offset="1088" max-vertical-offset="1995">
-                        <caret line="437" column="5" selection-start-line="437" selection-start-column="5" selection-end-line="437" selection-end-column="5" />
+                      <state vertical-scroll-proportion="0.4707828" vertical-offset="2114" max-vertical-offset="3507">
+                        <caret line="352" column="41" selection-start-line="352" selection-start-column="41" selection-end-line="352" selection-end-column="41" />
                         <folding>
                           <element signature="n#__construct#0;n#query#0;n#!!top" expanded="false" />
                           <element signature="n#__destruct#0;n#query#0;n#!!top" expanded="false" />
@@ -90,15 +90,16 @@
                           <element signature="e#6072#6295#0#PHP" expanded="false" />
                           <element signature="n#orderNests#0;n#query#0;n#!!top" expanded="false" />
                           <element signature="n#orderAssignNests#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="n#parseQuery#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="e#8194#8346#0#PHP" expanded="false" />
-                          <element signature="e#8364#8888#0#PHP" expanded="false" />
-                          <element signature="e#8906#9225#0#PHP" expanded="false" />
-                          <element signature="e#9610#9728#0#PHP" expanded="false" />
-                          <element signature="e#10353#10827#0#PHP" expanded="false" />
+                          <element signature="e#7643#7775#1#PHP" expanded="false" />
+                          <element signature="e#7799#8056#1#PHP" expanded="false" />
+                          <element signature="e#8204#8356#0#PHP" expanded="false" />
+                          <element signature="e#8374#8898#0#PHP" expanded="false" />
+                          <element signature="e#8916#9235#0#PHP" expanded="false" />
+                          <element signature="e#9601#9719#0#PHP" expanded="false" />
+                          <element signature="e#10445#10919#0#PHP" expanded="false" />
                           <element signature="n#prepareQuery#0;n#query#0;n#!!top" expanded="false" />
-                          <element signature="e#11392#12104#0#PHP" expanded="false" />
-                          <element signature="e#12166#12814#0#PHP" expanded="false" />
+                          <element signature="e#11484#12196#0#PHP" expanded="false" />
+                          <element signature="e#12258#12906#0#PHP" expanded="false" />
                           <element signature="n#conditionHandle#0;n#query#0;n#!!top" expanded="false" />
                           <element signature="n#getCondition#0;n#query#0;n#!!top" expanded="false" />
                         </folding>
@@ -198,7 +199,7 @@
           <file leaf-file-name="xmlParser.php" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Desktop/pro1/xmlParser.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.08275862" vertical-offset="330" max-vertical-offset="2877">
+                <state vertical-scroll-proportion="0.08421053" vertical-offset="330" max-vertical-offset="2877">
                   <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
                   <folding>
                     <element signature="n#__construct#0;n#xmlParser#0;n#!!top" expanded="false" />
@@ -247,8 +248,8 @@
           <file leaf-file-name="sql.txt" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Desktop/pro1/sql.txt">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="610">
-                  <caret line="0" column="39" selection-start-line="0" selection-start-column="39" selection-end-line="0" selection-end-column="39" />
+                <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
+                  <caret line="0" column="32" selection-start-line="0" selection-start-column="32" selection-end-line="0" selection-end-column="32" />
                   <folding />
                 </state>
               </provider>
@@ -271,8 +272,8 @@
         <option value="$PROJECT_DIR$/Desktop/pro1/xmlParser.php" />
         <option value="$PROJECT_DIR$/Desktop/pro1/xqr.php" />
         <option value="$PROJECT_DIR$/Desktop/pro1/arguments.php" />
-        <option value="$PROJECT_DIR$/Desktop/pro1/query.php" />
         <option value="$PROJECT_DIR$/Desktop/pro1/sql.txt" />
+        <option value="$PROJECT_DIR$/Desktop/pro1/query.php" />
       </list>
     </option>
   </component>
@@ -458,7 +459,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="54" y="-8" width="1874" height="1096" extended-state="7" />
+    <frame x="54" y="-8" width="1874" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -469,7 +470,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24865447" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39817628" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34042552" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.35055724" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -519,6 +520,34 @@
           <folding>
             <element signature="n#__construct#0;n#query#0;n#!!top" expanded="false" />
             <element signature="n#__destruct#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#applyFrom#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#digDataByFrom#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#applySelect#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#digDataBySelect#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#applyLimit#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#applyWhere#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#whereNests#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#digDataByWhere#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#whereCondition#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#applyOrder#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="e#5796#6038#0#PHP" expanded="false" />
+            <element signature="e#5880#5947#0#PHP" expanded="false" />
+            <element signature="e#5961#6028#0#PHP" expanded="false" />
+            <element signature="e#6072#6295#0#PHP" expanded="false" />
+            <element signature="n#orderNests#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#orderAssignNests#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="e#7643#7775#1#PHP" expanded="false" />
+            <element signature="e#7799#8056#1#PHP" expanded="false" />
+            <element signature="e#8204#8356#0#PHP" expanded="false" />
+            <element signature="e#8374#8898#0#PHP" expanded="false" />
+            <element signature="e#8916#9235#0#PHP" expanded="false" />
+            <element signature="e#9601#9719#0#PHP" expanded="false" />
+            <element signature="e#10445#10919#0#PHP" expanded="false" />
+            <element signature="n#prepareQuery#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="e#11484#12196#0#PHP" expanded="false" />
+            <element signature="e#12258#12906#0#PHP" expanded="false" />
+            <element signature="n#conditionHandle#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#getCondition#0;n#query#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -590,6 +619,34 @@
           <folding>
             <element signature="n#__construct#0;n#query#0;n#!!top" expanded="false" />
             <element signature="n#__destruct#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#applyFrom#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#digDataByFrom#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#applySelect#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#digDataBySelect#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#applyLimit#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#applyWhere#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#whereNests#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#digDataByWhere#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#whereCondition#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#applyOrder#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="e#5796#6038#0#PHP" expanded="false" />
+            <element signature="e#5880#5947#0#PHP" expanded="false" />
+            <element signature="e#5961#6028#0#PHP" expanded="false" />
+            <element signature="e#6072#6295#0#PHP" expanded="false" />
+            <element signature="n#orderNests#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#orderAssignNests#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="e#7643#7775#1#PHP" expanded="false" />
+            <element signature="e#7799#8056#1#PHP" expanded="false" />
+            <element signature="e#8204#8356#0#PHP" expanded="false" />
+            <element signature="e#8374#8898#0#PHP" expanded="false" />
+            <element signature="e#8916#9235#0#PHP" expanded="false" />
+            <element signature="e#9601#9719#0#PHP" expanded="false" />
+            <element signature="e#10445#10919#0#PHP" expanded="false" />
+            <element signature="n#prepareQuery#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="e#11484#12196#0#PHP" expanded="false" />
+            <element signature="e#12258#12906#0#PHP" expanded="false" />
+            <element signature="n#conditionHandle#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#getCondition#0;n#query#0;n#!!top" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -934,20 +991,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Desktop/pro1/query.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9131334" vertical-offset="10457" max-vertical-offset="11781">
-          <caret line="544" column="0" selection-start-line="544" selection-start-column="0" selection-end-line="544" selection-end-column="0" />
-          <folding>
-            <element signature="n#__construct#0;n#query#0;n#!!top" expanded="false" />
-            <element signature="n#__destruct#0;n#query#0;n#!!top" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Desktop/pro1/xmlParser.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.08275862" vertical-offset="330" max-vertical-offset="2877">
+        <state vertical-scroll-proportion="0.08421053" vertical-offset="330" max-vertical-offset="2877">
           <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding>
             <element signature="n#__construct#0;n#xmlParser#0;n#!!top" expanded="false" />
@@ -964,9 +1010,48 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Desktop/pro1/sql.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="610">
-          <caret line="0" column="39" selection-start-line="0" selection-start-column="39" selection-end-line="0" selection-end-column="39" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="600">
+          <caret line="0" column="32" selection-start-line="0" selection-start-column="32" selection-end-line="0" selection-end-column="32" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Desktop/pro1/query.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4707828" vertical-offset="2114" max-vertical-offset="3507">
+          <caret line="352" column="41" selection-start-line="352" selection-start-column="41" selection-end-line="352" selection-end-column="41" />
+          <folding>
+            <element signature="n#__construct#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#__destruct#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#applyFrom#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#digDataByFrom#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#applySelect#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#digDataBySelect#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#applyLimit#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#applyWhere#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#whereNests#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#digDataByWhere#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#whereCondition#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#applyOrder#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="e#5796#6038#0#PHP" expanded="false" />
+            <element signature="e#5880#5947#0#PHP" expanded="false" />
+            <element signature="e#5961#6028#0#PHP" expanded="false" />
+            <element signature="e#6072#6295#0#PHP" expanded="false" />
+            <element signature="n#orderNests#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#orderAssignNests#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="e#7643#7775#1#PHP" expanded="false" />
+            <element signature="e#7799#8056#1#PHP" expanded="false" />
+            <element signature="e#8204#8356#0#PHP" expanded="false" />
+            <element signature="e#8374#8898#0#PHP" expanded="false" />
+            <element signature="e#8916#9235#0#PHP" expanded="false" />
+            <element signature="e#9601#9719#0#PHP" expanded="false" />
+            <element signature="e#10445#10919#0#PHP" expanded="false" />
+            <element signature="n#prepareQuery#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="e#11484#12196#0#PHP" expanded="false" />
+            <element signature="e#12258#12906#0#PHP" expanded="false" />
+            <element signature="n#conditionHandle#0;n#query#0;n#!!top" expanded="false" />
+            <element signature="n#getCondition#0;n#query#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>

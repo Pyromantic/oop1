@@ -256,6 +256,7 @@ class query {
         }
     }
 
+
     public function parseQuery ($query) {   // parse Query and sets individual elements
 
         $query = $this->prepareQuery($query);       // prepares query
@@ -277,8 +278,8 @@ class query {
 
             throw new Exception('Neplatne logicke spojeni (AND/OR) v SQL query');
         };
-
-        for ($rule = 0; $rule <= self::QUE; ++$rule)    // iterates over elements of query
+        $rule = 0;
+        for (; $rule <= self::QUE; ++$rule)    // iterates over elements of query
             switch ($rule) {
                 case 0 && $query[$i] == 'SELECT' :
 
@@ -316,15 +317,16 @@ class query {
                     break;
 
 
-                case 3 && $query[$i] == 'WHERE':
-
+                case 3 :
+                        if ($query[$i] != 'WHERE')
+                            continue;
                     $inc();
 
-                    //$this->affectionHandle ($inc, $affection, $query, $i, 'AND');
-
                     $brackets = 0;
+
                     $this->query['WHERE'][] = $this->conditionHandle
                     ($inc, $query, $i, $brackets, 'AND', $affection);
+
                     break;
 
                 default :
@@ -337,18 +339,22 @@ class query {
         for (;$i < $count;)                             // iterates over elements of query
             switch ($query[$i]) {
 
-                case 'AND' :
+                case 'AND' &&  $rule == 3 :
 
                     $inc();
+
+                    $brackets = 0;
 
                      array_unshift($this->query['WHERE'] , $this->conditionHandle
                     ($inc, $query, $i, $brackets, 'AND', $affection));
 
                     break;
 
-                case 'OR' :
+                case 'OR' && $rule == 3 :
 
                     $inc();
+
+                    $brackets = 0;
 
                     $this->query['WHERE'][] = $this->conditionHandle
                     ($inc, $query, $i, $brackets, 'OR', $affection);
