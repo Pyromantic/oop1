@@ -100,13 +100,20 @@ class query {
 
     private function applyWhere () {    // apply SQL WHERE Command
         $rejected = array();
+
         foreach ($this->query['WHERE'] as $sets) {
             if (isset($sets['NOT'])) {
                 $this->whereNests($sets, $rejected);
-            } else {
-                foreach ($sets as $actual)
-                    $this->whereNests($actual, $rejected);
-            }
+            } else $this->conditionNests($sets, $rejected);
+        }
+    }
+
+    private function conditionNests ($input, &$rejected) {
+        foreach ($input as $sets) {
+            if (isset($sets['NOT']))  {
+                $this->whereNests($sets, $rejected);
+                return;
+            } else $this->conditionNests($sets, $rejected);
         }
     }
 
@@ -393,9 +400,8 @@ class query {
         $field = array();
 
         $word = NULL;
-        foreach ($query as $element) {
-            $wordChars = str_split ($element);
-            foreach ($wordChars as $character) {
+        foreach ($query as $element) {              // splits brackets
+            foreach (str_split($element) as $character) {
                 if ($character === '(' || $character === ')') {
                     if (isset($word)) {
                         $field[] = $word;
@@ -521,9 +527,9 @@ class query {
         $inc();
 
         if ($query[$i] == ')') {
-
             if (--$brackets < 0)
                 throw new Exception('neplatne uzavreni zavorek');
+
             $inc();
         }
 

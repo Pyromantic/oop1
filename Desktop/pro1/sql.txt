@@ -1,2 +1,1 @@
-SELECT book LIMIT 3 FROM catalog WHERE NOT( NOT year > 2000) ORDER BY year ASC
-
+SELECT book FROM ROOT WHERE (( title CONTAINS "s" OR title CONTAINS "n" ) AND rok > 1520) ORDER BY rok DESC
