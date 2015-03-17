@@ -392,56 +392,24 @@ class query {
 
         $field = array();
 
-        foreach ($query as &$item) {                // separates left brackets (
-            if (($position = strpos($item, '(')) !== false) {
-                while (($position = strpos($item, '(')) !== false) {
-
-                    $tmp = substr($item, 0, $position);
-
-                    if (isset($tmp[0]))
-                        $field[] = $tmp;
-
-                    $field[] = '(';
-
-                    $item = substr($item, $position + 1);
-                }
-                $tmp = substr($item, 0, $position);
-
-                if (isset($tmp[0]))
-                    $field[] = $tmp;
-
-                if ($item !== false)
-                    $field[] = substr($item, $position);
+        $word = NULL;
+        foreach ($query as $element) {
+            $wordChars = str_split ($element);
+            foreach ($wordChars as $character) {
+                if ($character === '(' || $character === ')') {
+                    if (isset($word)) {
+                        $field[] = $word;
+                        $word = NULL;
+                    }
+                    $field[] = $character;
+                } else
+                    $word .= $character;
             }
-             else
-                $field[] = $item;
+            if (isset($word)) {
+                $field[] = $word;
+                $word = NULL;
+            }
         }
-
-        $query = $field;
-        $field = array();
-
-        foreach ($query as &$item) {                 // separates right brackets )
-            if (($position = strpos($item, ')')) !== false) {
-                while (($position = strpos($item, ')')) !== false) {
-
-                    $tmp = substr($item, 0, $position);
-
-                    if (isset($tmp[0]))
-                        $field[] = $tmp;
-
-                    $item = substr($item, $position + 1);
-                    $field[] = ')';
-
-                }
-
-                $tmp = substr($item, $position + 1);
-                if (isset($tmp[0]))
-                    $field[] = $tmp;
-            } else
-                $field[] = $item;
-        }
-
-
 
         return $field;
     }
@@ -553,7 +521,9 @@ class query {
         $inc();
 
         if ($query[$i] == ')') {
-            --$brackets;
+
+            if (--$brackets < 0)
+                throw new Exception('neplatne uzavreni zavorek');
             $inc();
         }
 
